@@ -36,7 +36,7 @@ frist add to config.php
 
 ]
 ?>
-```php
+```
 Once the extension is installed, simply use it in your code by  :
 ```php
 <?= Yii::$app->telegram->senMessage('chat_id', 'message'); ?>
