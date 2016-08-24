@@ -10,7 +10,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist aki/yii2-bot-telegram "*"
+php composer.phar require --prefer-dist akbarjoody/yii2-bot-telegram "*"
 ```
 
 or add
@@ -36,7 +36,7 @@ frist add to config.php
 
 ]
 ?>
----
+```php
 Once the extension is installed, simply use it in your code by  :
 
 ```php
