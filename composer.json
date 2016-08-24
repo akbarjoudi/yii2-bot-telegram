@@ -1,0 +1,21 @@
+{
+    "name": "akbarjoody/yii2-bot-telegram",
+    "description": "bot telegram",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","bot","telegram","botTelegram","akbarjoudi"],
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "akbarjoudi",
+            "email": "akbar.joody@gmail.ocm"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "aki\\telegram\\": ""
+        }
+    }
+}
