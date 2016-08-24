@@ -10,7 +10,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist akbarjoody/yii2-bot-telegram "*"
+php composer.phar require aki/yii2-bot-telegram "@dev"
 ```
 
 or add
