@@ -1,7 +1,6 @@
 <?php
 
 namespace aki\telegram;
-
 /**
  * This is just an example.
  */
