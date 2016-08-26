@@ -163,7 +163,7 @@ class Telegram extends \yii\base\Component
         $attachments = ['photo', 'sticker', 'audio', 'document', 'video'];
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, "ParanoiaBot 1.0");
+        curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         if (count($post)) {
             curl_setopt($ch, CURLOPT_POST, true);
