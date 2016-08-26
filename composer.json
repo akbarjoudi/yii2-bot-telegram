@@ -13,12 +13,15 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
-        "yiisoft/yii2": ">=2.0.0",
     },
     "autoload": {
         "psr-4": {
             "aki\\telegram\\": ""
         }
     },
-    
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
