@@ -1,8 +1,8 @@
 {
     "name": "aki/yii2-bot-telegram",
-    "description": "bot telegram",
+    "description": "for bot telegram",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","bot","telegram","botTelegram","akbarjoudi"],
+    "keywords": ["yii2","extension"," telegram"," bot"," botTelegram"," "],
     "license": "LGPL-3.0+",
     "authors": [
         {
@@ -11,13 +11,12 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
     },
     "autoload": {
         "psr-4": {
             "aki\\telegram\\": ""
         }
     }
-    
 }
+
