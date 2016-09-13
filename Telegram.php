@@ -16,14 +16,31 @@ class Telegram extends \yii\base\Component
         return $jsonResponse;
     }
 
-    public function sendMessage($chat_id, $text, $disable_web_page_preview = false, $reply_to_message_id = false, $reply_markup = false){
+    /**
+     * Send message
+     * 
+     * @param integer|string $chat_id
+     * @param string $text
+     * @param string $parse_mode false, markdown or html
+     * @param boolean $disable_web_page_preview
+     * @param boolean $disable_notification Sends the message silently
+     * @param integer $reply_to_message_id
+     * @param array $reply_markup
+     * 
+     * @return Object
+     */
+    public function sendMessage($chat_id, $text, $parse_mode = false, $disable_web_page_preview = false, $disable_notification = false, $reply_to_message_id = false, $reply_markup = false){
     	$arrayPost = array('chat_id' => $chat_id, 'text' => $text);
+        if($parse_mode)
+            $this->array_push_assoc($arrayPost, 'parse_mode', $parse_mode);
         if($reply_to_message_id)
             $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
         if($disable_web_page_preview)
             $this->array_push_assoc($arrayPost, 'disable_web_page_preview', $disable_web_page_preview);
+        if($disable_notification)
+            $this->array_push_assoc($arrayPost, 'disable_notification', $disable_notification);
         if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
+            $this->array_push_assoc($arrayPost, 'reply_markup', json_encode($reply_markup));
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage", $arrayPost);
         return json_decode($jsonResponse);
     }
