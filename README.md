@@ -32,7 +32,6 @@ frist add to config.php
         'class' => 'aki\telegram\Telegram',
         'botToken' => '123456:akiii',
     ]
-
 ]
 ?>
 ```
