@@ -23,7 +23,7 @@ to the require section of your `composer.json` file.
 
 Method list usable
 -----
-
+list methods
 ```
 getMe
 sendMessage
