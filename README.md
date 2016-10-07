@@ -24,7 +24,7 @@ to the require section of your `composer.json` file.
 
 Usage
 -----
-frist add to config.php
+first add to config.php
 ```php
 <?php
 'component' => [
