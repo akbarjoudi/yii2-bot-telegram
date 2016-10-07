@@ -28,6 +28,7 @@ Create your first bot
 	For a description of the Bot API, see this page:
 	https://core.telegram.org/bots/api
 	```
+
 7. Note down the 'token' mentioned above.
 
 8. Type ```/setprivacy``` to @botfather.
