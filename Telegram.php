@@ -23,7 +23,7 @@ class Telegram extends \yii\base\Component
         if($disable_web_page_preview)
             $this->array_push_assoc($arrayPost, 'disable_web_page_preview', $disable_web_page_preview);
         if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
+            $this->array_push_assoc($arrayPost, 'reply_markup', json_encode($reply_markup));
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage", $arrayPost);
         return json_decode($jsonResponse);
     }
