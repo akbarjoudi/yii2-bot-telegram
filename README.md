@@ -32,7 +32,8 @@ Create your first bot
 7. Note down the 'token' mentioned above.
 
 8. Type ```/setprivacy``` to @botfather.
-	![capture](https://cloud.githubusercontent.com/assets/11705808/19187624/4ba64434-8c99-11e6-975d-737075f92d46.PNG)
+
+		![capture](https://cloud.githubusercontent.com/assets/11705808/19187624/4ba64434-8c99-11e6-975d-737075f92d46.PNG)
 
 9. @botfather replies with ```Choose a bot to change group messages settings.```
 
