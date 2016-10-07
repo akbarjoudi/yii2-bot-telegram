@@ -5,7 +5,7 @@ for web application yii2
 Create your first bot
 ------------
 1. Message @botfather https://telegram.me/botfather with the following text: ```/newbot``` If you don't know how to message by username, click the search field on your Telegram app and type ```@botfather```, where you should be able to initiate a conversation. Be careful not to send it to the wrong contact, because some users has similar usernames to ```botfather.```
-![createbot](https://cloud.githubusercontent.com/assets/11705808/19187517/c1179cc8-8c98-11e6-84fe-a8570388931c.PNG)
+	![createbot](https://cloud.githubusercontent.com/assets/11705808/19187517/c1179cc8-8c98-11e6-84fe-a8570388931c.PNG)
 
 2. @botfather replies with ```Alright, a new bot. How are we going to call it? Please choose a name for your bot.```
 
@@ -33,7 +33,7 @@ Create your first bot
 
 8. Type ```/setprivacy``` to @botfather.
 
-	![alt tag](https://camo.githubusercontent.com/710100a36faf2117ffc7a1ec3eee2cfe7a870f48/687474703a2f2f692e696d6775722e636f6d2f745744567668342e706e67)
+	![capture](https://cloud.githubusercontent.com/assets/11705808/19187624/4ba64434-8c99-11e6-975d-737075f92d46.PNG)
 
 9. @botfather replies with ```Choose a bot to change group messages settings.```
 
