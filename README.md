@@ -1,6 +1,6 @@
-bot telegram
+Yii2 bot telegram
 ============
-for bot telegram
+for web application yii2
 
 Installation
 ------------
