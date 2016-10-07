@@ -5,6 +5,7 @@ for web application yii2
 Create your first bot
 ------------
 1. Message @botfather https://telegram.me/botfather with the following text: ```/newbot``` If you don't know how to message by username, click the search field on your Telegram app and type ```@botfather```, where you should be able to initiate a conversation. Be careful not to send it to the wrong contact, because some users has similar usernames to ```botfather.```
+
 	![createbot](https://cloud.githubusercontent.com/assets/11705808/19187517/c1179cc8-8c98-11e6-84fe-a8570388931c.PNG)
 
 2. @botfather replies with ```Alright, a new bot. How are we going to call it? Please choose a name for your bot.```
