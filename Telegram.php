@@ -15,99 +15,159 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getMe");
         return $jsonResponse;
     }
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendMessage([
+    *       'chat_id' => $chat_id,
+    *       'text' => 'test',
+    *       'reply_markup' => json_encode($reply_markup)
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'disable_web_page_preview' => $disable_web_page_preview, 
+    *   ]);
+    */
+    public function sendMessage(array $option){
 
-    public function sendMessage($chat_id, $text, $disable_web_page_preview = false, $reply_to_message_id = false, $reply_markup = false){
-    	$arrayPost = array('chat_id' => $chat_id, 'text' => $text);
-        if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($disable_web_page_preview)
-            $this->array_push_assoc($arrayPost, 'disable_web_page_preview', $disable_web_page_preview);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', json_encode($reply_markup));
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage", $arrayPost);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage", $option);
         return json_decode($jsonResponse);
     }
 
-    public function forwardMessage($chat_id, $from_chat_id, $message_id){
-    	$arrayPost = array('chat_id' => $chat_id, 'from_chat_id' => $from_chat_id, 'message_id' => $message_id);
-    	$jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/forwardMessage", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->forwardMessage([
+    *       'chat_id' => $chat_id,
+    *       'from_chat_id' => $from_chat_id,
+    *       'message_id' => $message_id,
+    *   ]);
+    */
+    public function forwardMessage(array $option){
+    	$jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/forwardMessage", $option);
         return json_decode($jsonResponse);
     }
     
-    public function sendPhoto($chat_id, $photo, $caption = false, $reply_to_message_id = false, $reply_markup = false){
-        $arrayPost = array('chat_id' => $chat_id, 'photo' => $photo);
-    	if($caption)
-            $this->array_push_assoc($arrayPost, 'caption', $caption);
-        if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendPhoto([
+    *       'chat_id' => $chat_id,
+    *       'photo' => 'path/to/test.jpg',//realpath
+    *       'caption' => $caption,
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'reply_markup' => $reply_markup
+    *   ]);
+    */
+    public function sendPhoto(array $option){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto", $option);
         return json_decode($jsonResponse);
     }
 
-    public function sendAudio($chat_id, $audio, $duration = 0, $reply_to_message_id = false, $reply_markup = false){
-    	$arrayPost = array('chat_id' => $chat_id, 'audio' => $audio);
-    	if($duration > 0)
-            $this->array_push_assoc($arrayPost, 'duration', $duration);
-        if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendAudio", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendAudio[
+    *       'chat_id' => $chat_id,
+    *       'audio' => 'path/to/test.ogg',//realpath
+    *       'duration' => 0,
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'reply_markup' => $reply_markup
+    *   ]);
+    */
+    public function sendAudio(array $option){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendAudio", $option);
         return json_decode($jsonResponse);
     }
 
-    public function sendDocument($chat_id, $document, $reply_to_message_id = false, $reply_markup = false){
-    	$arrayPost = array('chat_id' => $chat_id, 'document' => $document);
-    	if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendDocument", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendDocument([
+    *       'chat_id' => $chat_id,
+    *       'document' => 'path/to/test.pdf',//realpath
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'reply_markup' => $reply_markup
+    *   ]);
+    */
+    public function sendDocument(array $option){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendDocument", $option);
         return json_decode($jsonResponse);
     }
     
-    public function sendSticker($chat_id, $sticker, $reply_to_message_id = false, $reply_markup = false){
-    	$arrayPost = array('chat_id' => $chat_id, 'sticker' => $sticker);
-    	if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendSticker", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendSticker([
+    *       'chat_id' => $chat_id,
+    *       'sticker' => 'path/to/test.webp',//realpath
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'reply_markup' => $reply_markup
+    *   ]);
+    */
+    public function sendSticker(array $option){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendSticker", $option);
         return json_decode($jsonResponse);
     }
     
-    public function sendVideo($chat_id, $video, $duration = 0, $caption = false, $reply_to_message_id = false, $reply_markup = false){
-    	$arrayPost = array('chat_id' => $chat_id, 'video' => $video);
-    	if($duration > 0)
-            $this->array_push_assoc($arrayPost, 'duration', $duration);
-        if($caption)
-            $this->array_push_assoc($arrayPost, 'caption', $caption);
-        if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendVideo", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendVideo([
+    *       'chat_id' => $chat_id,
+    *       'video' => 'path/to/test.mp4',//realpath
+    *       'duration' => 0,
+    *       'caption' => $caption,
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'reply_markup' => $reply_markup
+    *   ]);
+    */
+    public function sendVideo(array $option){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendVideo", $option);
         return json_decode($jsonResponse);
     }
 
-    public function sendLocation($chat_id, $latitude, $longitude, $reply_to_message_id = false, $reply_markup = false){
-    	$arrayPost = array('chat_id' => $chat_id, 'latitude' => $latitude, 'longitude' => $longitude);
-    	if($reply_to_message_id)
-            $this->array_push_assoc($arrayPost, 'reply_to_message_id', $reply_to_message_id);
-        if($reply_markup)
-            $this->array_push_assoc($arrayPost, 'reply_markup', $reply_markup);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendLocation", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendVideo([
+    *       'chat_id' => $chat_id,
+    *       'latitude' => 37.7576793,
+    *       'longitude' => -122.5076402,
+    *       'disable_notification' => true,//true||false,
+    *       'reply_to_message_id' => $reply_to_message_id,
+    *       'reply_markup' => $reply_markup
+    *   ]);
+    */
+    public function sendLocation(array $option){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendLocation", $option);
         return json_decode($jsonResponse);
     }
 
-    public function sendChatAction($chat_id, $action){
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendChatAction([
+    *       'chat_id' => $chat_id,
+    *       'action' => 'upload_photo',// upload_photo or  record_video  or  upload_video or record_audio or 
+    *       // upload_audio or upload_document or find_location
+    *   ]);
+    *   
+    */
+    public function sendChatAction(array $option){
     	$arrayPost = array('chat_id' => $chat_id, 'action' => $action);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendChatAction", $arrayPost);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendChatAction", $option);
         return json_decode($jsonResponse);
     }
     
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getUserProfilePhotos([
+    *       'chat_id' => $chat_id,
+    *       'offset' => $offset,//Sequential number of the first photo to be returned. By default, all photos are returned.
+    *       'limit' => $limit, //Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
+    *   ]);
+    *   
+    */
     public function getUserProfilePhotos($user_id, $offset = false, $limit = false){
     	$arrayPost = array('user_id' => $user_id);
     	if($offset)
@@ -118,24 +178,36 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
 
-    public function getUpdates($offset = false, $limit = false, $timeout = false)
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getUpdates([
+    *       'offset' => $offset,//Identifier of the first update to be returned. Must be greater by one than the highest among the *            //identifiers of previously received updates. 
+    *           //By default, updates starting with the earliest unconfirmed update are returned.
+    *           //An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id.
+    *           //The negative offset can be specified to retrieve updates starting from -offset 
+    *           //update from the end of the updates queue.
+    *       'limit' => $limit,//Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100.
+    *       'timeout' => $timeout,//Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling
+    *   ]);
+    *   
+    */
+    public function getUpdates(array $option = [])
     {
-        $arrayPost = array();
-        if ($offset)
-            $this->array_push_assoc($arrayPost, 'offset', $offset);
-        if ($limit)
-            $this->array_push_assoc($arrayPost, 'limit', $limit);
-        if ($timeout)
-            $this->array_push_assoc($arrayPost, 'timeout', $timeout);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUpdates", $arrayPost);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUpdates", $option);
         return json_decode($jsonResponse);
     }
 
-    public function setWebhook($url = false){
-        $arrayPost = array();
-        if ($url)
-            $this->array_push_assoc($arrayPost, 'url', $url);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setWebhook", $arrayPost);
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->setWebhook([
+    *       'url' => $url,
+    *   ]);
+    *   
+    */
+    public function setWebhook(array $option = []){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setWebhook", $option);
         return json_decode($jsonResponse);
     }
 
