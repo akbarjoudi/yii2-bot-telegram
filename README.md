@@ -26,8 +26,8 @@ Method list usable
 
 ```
 getMe
-
 sendMessage
+forwardMessage
 ```
 
 Usage
