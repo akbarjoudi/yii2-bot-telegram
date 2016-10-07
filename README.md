@@ -29,9 +29,8 @@ frist add to config.php
 <?php
 'component' => [
 	'telegram' => [
-           'class' => 'aki\telegram\Telegram',
-           'botToken' => '123456:akkkkkkkkkkkkkkii',
-           'botUsername' => 'PostManGoBot'
+        'class' => 'aki\telegram\Telegram',
+        'botToken' => '123456:akiii',
     ]
 
 ]
@@ -39,4 +38,7 @@ frist add to config.php
 ```
 Once the extension is installed, simply use it in your code by  :
 ```php
-<?= Yii::$app->telegram->senMessage('chat_id', 'message'); ?>
+<?= Yii::$app->telegram->senMessage([
+	'chat_id' => $chat_id,
+	'text' => 'test',
+]); ?>
