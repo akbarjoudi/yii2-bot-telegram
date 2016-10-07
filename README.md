@@ -31,6 +31,7 @@ Create your first bot
 7. Note down the 'token' mentioned above.
 
 8. Type ```/setprivacy``` to @botfather.
+
 ![alt tag](https://camo.githubusercontent.com/710100a36faf2117ffc7a1ec3eee2cfe7a870f48/687474703a2f2f692e696d6775722e636f6d2f745744567668342e706e67)
 
 9. @botfather replies with ```Choose a bot to change group messages settings.```
