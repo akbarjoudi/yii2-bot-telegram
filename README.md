@@ -28,6 +28,16 @@ Method list usable
 getMe
 sendMessage
 forwardMessage
+sendPhoto
+sendAudio
+sendDocument
+sendSticker
+sendVideo
+sendLocation
+sendChatAction
+getUserProfilePhotos
+getUpdates
+setWebhook
 ```
 
 Usage
