@@ -8,13 +8,13 @@ Create your first bot
 
 	![createbot](https://cloud.githubusercontent.com/assets/11705808/19187517/c1179cc8-8c98-11e6-84fe-a8570388931c.PNG)
 
-2. @botfather replies with ```Alright, a new bot. How are we going to call it? Please choose a name for your bot.```
+2. @botfather replies with ```Alright, a new bot. How are we going to call it? Please choose a name for your bot```.
 
 3. Type whatever name you want for your bot.
 
-4. @botfather replies with ```Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: PostManGoBot or PostManGo_bot.```
+4. @botfather replies with ```Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: PostManGoBot or PostManGo_bot```.
 
-5. Type whatever username you want for your bot, minimum 5 characters, and must end with bot. For example: ```PostMan_bot```
+5. Type whatever username you want for your bot, minimum 5 characters, and must end with bot. For example: ```PostMan_bot```.
 
 6. @botfather replies with:
 	```
@@ -36,11 +36,11 @@ Create your first bot
 
 	![capture](https://cloud.githubusercontent.com/assets/11705808/19187624/4ba64434-8c99-11e6-975d-737075f92d46.PNG)
 
-9. @botfather replies with ```Choose a bot to change group messages settings.```
+9. @botfather replies with ```Choose a bot to change group messages settings```.
 
 10. Type (or select) @PostMan_bot (change to the username you set at step 5 above, but start it with @)
 
-11. @botfather replies with
+11. @botfather replies with.
 	```
 	'Enable' - your bot will only receive messages that either start with the '/' symbol or mention the bot by username.
 	'Disable' - your bot will receive all messages that people send to groups.
