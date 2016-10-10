@@ -103,7 +103,7 @@ first add to config.php
 ```
 Once the extension is installed, simply use it in your code by  :
 ```php
-<?= Yii::$app->telegram->senMessage([
+<?php Yii::$app->telegram->senMessage([
 	'chat_id' => $chat_id,
 	'text' => 'test',
 ]); ?>
