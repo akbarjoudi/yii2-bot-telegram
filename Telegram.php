@@ -245,8 +245,8 @@ class Telegram extends \yii\base\Component
                     break;
                 }
             }
-
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            $feild = http_build_query($post);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $feild);
         }
         $r = curl_exec($ch);
         curl_close($ch);
