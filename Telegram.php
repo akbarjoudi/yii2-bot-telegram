@@ -7,7 +7,7 @@ namespace aki\telegram;
 class Telegram extends \yii\base\Component
 {
     public $botToken;
-
+    public $botUsername;
     public function getMe()
     {
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getMe");
@@ -56,7 +56,10 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendPhoto(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto?chat_id=".$option['chat_id'], $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" .
+                $this->botToken . "/sendPhoto?chat_id=".
+                $option['chat_id'].'caption='. $option['caption'],
+                $option);
         return json_decode($jsonResponse);
     }
 
@@ -119,7 +122,8 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendVideo(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendVideo?chat_id=".$option['chat_id'], $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendVideo?chat_id=".$option['chat_id']
+                .'caption='. $option['caption'], $option);
         return json_decode($jsonResponse);
     }
 
@@ -215,14 +219,7 @@ class Telegram extends \yii\base\Component
         return json_decode($json);
     }
 
-    public function test($json)
-    {
-        $json = json_decode($json, true);
-        if($this->botUsername == $json['result']['username'])
-            return true;
-        else
-            return false;
-    }
+    
 
     private function array_push_assoc(&$array, $key, $value){
        $array[$key] = $value;
@@ -244,9 +241,7 @@ class Telegram extends \yii\base\Component
                     break;
                 }
             }
-            $res = curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            
-            
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post); 
         }
         $r = curl_exec($ch);
         curl_close($ch);
