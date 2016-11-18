@@ -7,8 +7,6 @@ namespace aki\telegram;
 class Telegram extends \yii\base\Component
 {
     public $botToken;
-    public $botUsername;
-
 
     public function getMe()
     {
@@ -28,7 +26,7 @@ class Telegram extends \yii\base\Component
     */
     public function sendMessage(array $option){
 
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
 
@@ -42,7 +40,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function forwardMessage(array $option){
-    	$jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/forwardMessage", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/forwardMessage?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
     
@@ -58,7 +56,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendPhoto(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
 
@@ -74,7 +72,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendAudio(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendAudio", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendAudio?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
 
@@ -89,7 +87,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendDocument(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendDocument", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendDocument?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
     
@@ -104,7 +102,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendSticker(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendSticker", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendSticker?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
     
@@ -121,7 +119,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendVideo(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendVideo", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendVideo?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
 
@@ -138,7 +136,7 @@ class Telegram extends \yii\base\Component
     *   ]);
     */
     public function sendLocation(array $option){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendLocation", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendLocation?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
 
@@ -153,8 +151,8 @@ class Telegram extends \yii\base\Component
     *   
     */
     public function sendChatAction(array $option){
-    	$arrayPost = array('chat_id' => $chat_id, 'action' => $action);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendChatAction", $option);
+        $arrayPost = array('chat_id' => $chat_id, 'action' => $action);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendChatAction?chat_id=".$option['chat_id'], $option);
         return json_decode($jsonResponse);
     }
     
@@ -169,12 +167,12 @@ class Telegram extends \yii\base\Component
     *   
     */
     public function getUserProfilePhotos($user_id, $offset = false, $limit = false){
-    	$arrayPost = array('user_id' => $user_id);
-    	if($offset)
-    		$this->array_push_assoc($arrayPost, 'offset', $offset);
-    	if($limit)
-    		$this->array_push_assoc($arrayPost, 'limit', $limit);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos", $arrayPost);
+        $arrayPost = array('user_id' => $user_id);
+        if($offset)
+            $this->array_push_assoc($arrayPost, 'offset', $offset);
+        if($limit)
+            $this->array_push_assoc($arrayPost, 'limit', $limit);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos?chat_id=".$option['chat_id'], $arrayPost);
         return json_decode($jsonResponse);
     }
 
@@ -227,11 +225,12 @@ class Telegram extends \yii\base\Component
     }
 
     private function array_push_assoc(&$array, $key, $value){
-	   $array[$key] = $value;
+       $array[$key] = $value;
     }
 
     private function curl_call($url, $post=array(), $headers=array()){
         $attachments = ['photo', 'sticker', 'audio', 'document', 'video'];
+        unset($post['chat_id']);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
@@ -245,10 +244,15 @@ class Telegram extends \yii\base\Component
                     break;
                 }
             }
-            $feild = http_build_query($post);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $feild);
+            $res = curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            
+            
         }
         $r = curl_exec($ch);
+        if(curl_exec($ch) === false)
+{
+    echo 'Curl error: ' . curl_error($ch);
+}
         curl_close($ch);
         return $r;
     }
