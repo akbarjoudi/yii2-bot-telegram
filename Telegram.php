@@ -249,10 +249,6 @@ class Telegram extends \yii\base\Component
             
         }
         $r = curl_exec($ch);
-        if(curl_exec($ch) === false)
-{
-    echo 'Curl error: ' . curl_error($ch);
-}
         curl_close($ch);
         return $r;
     }
