@@ -88,6 +88,8 @@ getUpdates
 setWebhook
 getChat
 getChatAdministrators
+getChatMembersCount
+getChatMember
 ```
 
 Usage

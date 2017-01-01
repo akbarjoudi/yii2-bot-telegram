@@ -246,7 +246,7 @@ class Telegram extends \yii\base\Component
     *   @var Array 
     *   sample
     *   Yii::$app->telegram->getChat([
-    *       'chat_id' => Input::getChatID(),
+    *       'chat_id' => '3343545121',
     *   ]);
     *   
     */
@@ -260,13 +260,43 @@ class Telegram extends \yii\base\Component
     *   @var Array 
     *   sample
     *   Yii::$app->telegram->getChatAdministrators([
-    *       'chat_id' => Input::getChatID(),
+    *       'chat_id' => '3343545121',
     *   ]);
     *   Use this method to get a list of administrators in a chat.
     */
     public function getChatAdministrators(array $option = [])
     {
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChatAdministrators", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getChatMembersCount([
+    *       'chat_id' => '3343545121',
+    *   ]);
+    *   Use this method to get the number of members in a chat. Returns Int on success.
+    */
+    public function getChatMembersCount(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChatMembersCount", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getChatMember([
+    *       'chat_id' => '3343545121', //Unique identifier for the target chat or 
+    *            //username of the target supergroup or channel (in  the format @channelusername)
+    *       'user_id' => 243243,//Unique identifier of the target user
+    *   ]);
+    *   Use this method to get information about a member of a chat.
+    */
+    public function getChatMember(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChatMember", $option);
         return json_decode($jsonResponse);
     }
 
