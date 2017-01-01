@@ -255,7 +255,21 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChat", $option);
         return json_decode($jsonResponse);
     }
-    
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getChatAdministrators([
+    *       'chat_id' => Input::getChatID(),
+    *   ]);
+    *   Use this method to get a list of administrators in a chat.
+    */
+    public function getChatAdministrators(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChatAdministrators", $option);
+        return json_decode($jsonResponse);
+    }
+
     public function hook()
     {
         $json = file_get_contents('php://input');

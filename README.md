@@ -87,6 +87,7 @@ getUserProfilePhotos
 getUpdates
 setWebhook
 getChat
+getChatAdministrators
 ```
 
 Usage
