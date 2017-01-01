@@ -242,6 +242,20 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
 
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getChat([
+    *       'chat_id' => Input::getChatID(),
+    *   ]);
+    *   
+    */
+    public function getChat(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChat", $option);
+        return json_decode($jsonResponse);
+    }
+    
     public function hook()
     {
         $json = file_get_contents('php://input');
