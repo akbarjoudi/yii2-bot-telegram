@@ -86,6 +86,7 @@ sendChatAction
 getUserProfilePhotos
 getUpdates
 setWebhook
+getChat
 ```
 
 Usage
