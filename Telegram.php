@@ -299,7 +299,25 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChatMember", $option);
         return json_decode($jsonResponse);
     }
-
+    
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->answerCallbackQuery([
+    *       'callback_query_id' => '3343545121', //require
+    *       'text' => 'text', //Optional
+    *       'show_alert' => 'my alert',  //Optional
+    *       'url' => 'http://sample.com', //Optional
+    *       'cache_time' => 123231,  //Optional
+    *   ]);
+    *   Use this method to get information about a member of a chat.
+    */
+    public function answerCallbackQuery(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/answerCallbackQuery", $option);
+        return json_decode($jsonResponse);
+    }
+    
     public function hook()
     {
         $json = file_get_contents('php://input');
