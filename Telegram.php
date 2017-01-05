@@ -310,7 +310,9 @@ class Telegram extends \yii\base\Component
     *       'url' => 'http://sample.com', //Optional
     *       'cache_time' => 123231,  //Optional
     *   ]);
-    *   Use this method to get information about a member of a chat.
+    *   Use this method to send answers to callback queries sent from inline keyboards. 
+    *   The answer will be displayed to the user as a notification at the top of the chat screen or as an alert.
+    *  On success, True is returned.
     */
     public function answerCallbackQuery(array $option = [])
     {
@@ -330,7 +332,8 @@ class Telegram extends \yii\base\Component
     *       'disable_web_page_preview' => false or true,  //Optional
     *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
     *   ]);
-    *   Use this method to get information about a member of a chat.
+    *   Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). On success,
+    *  if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     */
     public function editMessageText(array $option = [])
     {
