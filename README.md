@@ -90,6 +90,7 @@ getChat
 getChatAdministrators
 getChatMembersCount
 getChatMember
+answerCallbackQuery
 ```
 
 Usage
