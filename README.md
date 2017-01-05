@@ -91,6 +91,7 @@ getChatAdministrators
 getChatMembersCount
 getChatMember
 answerCallbackQuery
+editMessageText
 ```
 
 Usage
