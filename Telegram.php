@@ -318,6 +318,26 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
     
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->editMessageText([
+    *       'chat_id' => '3343545121', //Optional
+    *       'message_id' => 13123, //Optional
+    *       'inline_message_id' => 'my alert',  //Optional
+    *       'text' => 'my text', //require
+    *       'parse_mode' => 123231,  //Optional
+    *       'disable_web_page_preview' => false or true,  //Optional
+    *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
+    *   ]);
+    *   Use this method to get information about a member of a chat.
+    */
+    public function editMessageText(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/editMessageText", $option);
+        return json_decode($jsonResponse);
+    }
+    
     public function hook()
     {
         $json = file_get_contents('php://input');
