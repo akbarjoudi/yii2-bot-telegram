@@ -202,10 +202,10 @@ class Telegram extends \yii\base\Component
     *   ]);
     *   
     */
-    public function getUserProfilePhotos($user_id, $offset = false, $limit = false){
+    public function getUserProfilePhotos($option){
         $chat_id = $option['chat_id'];
         unset($option['chat_id']);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos?chat_id=".$chat_id, $arrayPost);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
 
@@ -373,7 +373,10 @@ class Telegram extends \yii\base\Component
         }
         $r = curl_exec($ch);
         if($r == false){
-            echo 'eror '.curl_error($ch);
+            $text = 'eroror '.curl_error($ch);
+            $myfile = fopen("error_telegram.log", "w") or die("Unable to open file!");
+            fwrite($myfile, $text);
+            fclose($myfile);
         }
         curl_close($ch);
         return $r;
