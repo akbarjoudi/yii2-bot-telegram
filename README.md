@@ -109,7 +109,14 @@ first add to config.php
 ```
 Once the extension is installed, simply use it in your code by  :
 ```php
-<?php Yii::$app->telegram->senMessage([
+<?php Yii::$app->telegram->sendMessage([
 	'chat_id' => $chat_id,
 	'text' => 'test',
+]); ?>
+
+```php
+<?php Yii::$app->telegram->sendPhoto([
+	'chat_id' => $chat_id,
+	'photo' => 'path/to/test.jpg',
+	'caption' => 'this is test'
 ]); ?>
