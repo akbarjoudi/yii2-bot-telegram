@@ -113,6 +113,8 @@ Once the extension is installed, simply use it in your code by  :
 	'chat_id' => $chat_id,
 	'text' => 'test',
 ]); ?>
+```
+
 
 ```php
 <?php Yii::$app->telegram->sendPhoto([
