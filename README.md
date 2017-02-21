@@ -114,11 +114,29 @@ Once the extension is installed, simply use it in your code by  :
 	'text' => 'test',
 ]); ?>
 ```
+send message width inline keyboard by:
+```php
+<?php $telegram->sendMessage([
+        'chat_id' => $chat_id,
+        'text' => 'this is test',
+        'reply_markup' => json_encode([
+            'inline_keyboard'=>[
+                [
+                    ['text'=>"refresh",'callback_data'=> time()]
+                ]
+            ]
+        ]),
+    ] ?>
+```
 
-
+send photo by :
 ```php
 <?php Yii::$app->telegram->sendPhoto([
 	'chat_id' => $chat_id,
 	'photo' => 'path/to/test.jpg',
 	'caption' => 'this is test'
 ]); ?>
+```
+
+
+
