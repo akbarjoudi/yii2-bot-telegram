@@ -337,13 +337,42 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
     
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->editMessageText([
+    *       'chat_id' => '3343545121', //Optional
+    *       'message_id' => 13123, //Optional
+    *       'inline_message_id' => 'my alert',  //Optional
+    *       'caption' => 'my text', //require
+    *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
+    *   ]);
+    *   
+    *   Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). On success, 
+    *    if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+    */
+    public function editMessageCaption(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/editMessageCaption", $option);
+        return json_decode($jsonResponse);
+    }
+
     public function hook()
     {
         $json = file_get_contents('php://input');
         return json_decode($json);
     }
 
-    
+    /**
+    * Yii::$app->telegram->getFile([
+	*		'file_id' => $file_id
+    *	]);
+    *
+    */
+    public function getFile($option) {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getFile", $option);
+        return json_decode($jsonResponse);
+    }
 
     private function array_push_assoc(&$array, $key, $value){
        $array[$key] = $value;
