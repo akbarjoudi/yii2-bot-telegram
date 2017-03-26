@@ -116,7 +116,7 @@ Once the extension is installed, simply use it in your code by  :
 ```
 send message width inline keyboard by:
 ```php
-<?php $Yii::$app->telegram->sendMessage([
+<?php Yii::$app->telegram->sendMessage([
         'chat_id' => $chat_id,
         'text' => 'this is test',
         'reply_markup' => json_encode([
