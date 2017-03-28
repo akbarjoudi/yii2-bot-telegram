@@ -341,7 +341,7 @@ class Telegram extends \yii\base\Component
     *   @var Array 
     *   sample
     *   Yii::$app->telegram->editMessageText([
-    *       'chat_id' => '3343545121', //Optional
+    *       'chat_id' => '3343545121', //Required
     *       'message_id' => 13123, //Optional
     *       'inline_message_id' => 'my alert',  //Optional
     *       'caption' => 'my text', //require
@@ -356,6 +356,126 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/editMessageCaption", $option);
         return json_decode($jsonResponse);
     }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->sendGame([
+    *       'chat_id' => '3343545121', //Required
+    *       'game_short_name' => 'myGame', //Required
+    *       'disable_notification' => true,  //true or false Optional
+    *       'reply_to_message_id' => 123121, //Optional
+    *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
+    *   ]);
+    *   
+    *   Use this method to send a game. On success, the sent Message is returned. 
+    */
+    public function sendGame(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendGame", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->Game([
+    *       'title' => 'Title of the game', //Required
+    *       'description' => 'String', //Required
+    *       'photo' => Array of PhotoSize,  //Photo that will be displayed in the game message in chats
+    *       'text' => 'String', //Optional
+    *       'text_entities' => Array of MessageEntity,  //Optional
+    *		'animation' => instance of Animation, //Optional
+    *   ]);
+    *   
+    *   Use this method to send a game. On success, the sent Message is returned. 
+    */
+    public function Game(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/Game", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->Animation([
+    *       'file_id' => String, //Required
+    *       'thumb' => PhotoSize, //Optional
+    *       'file_name' => String,  //Optional
+    *       'mime_type' => String, //Optional
+    *   ]);
+    *   
+    *   You can provide an animation for your game so that it looks stylish 
+    * 	in chats (check out Lumberjack for an example). This object represents an animation file to 
+    * 	be displayed in the message containing a game. 
+    */
+    public function Animation(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/Animation", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->CallbackGame([
+    *       'user_id' => Integer, //Required
+    *       'score' => Integer, //Required
+    *       'force' => Boolean,  //Optional
+    *       'disable_edit_message' => Boolean, //Optional
+	*       'chat_id' => Integer,  //Integer
+	*       'message_id' => Integer,  //Optional
+	*       'inline_message_id' => String,  //Optional
+    *   ]);
+    *   
+    *   Use this method to set the score of the specified user in a game. On success,
+    *	if the message was sent by the bot, returns the edited Message, otherwise returns True.
+    *	Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
+    */
+    public function CallbackGame(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/CallbackGame", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->getGameHighScores([
+    *       'user_id' => Integer, //Required
+    *       'chat_id' => Integer, //Optional
+    *       'message_id' => Integer,  //Optional
+    *       'inline_message_id' => String, //Optional
+    *   ]);
+    *   
+    *   Use this method to get data for high score tables. 
+    *	Will return the score of the specified user and several of his neighbors in a game.
+    *	On success, returns an Array of GameHighScore objects.
+    */
+    public function getGameHighScores(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getGameHighScores", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->GameHighScore([
+    *       'position' => Integer, //Required-Position in high score table for the game
+    *       'user' => User, //Optional
+    *       'score' => Integer,  //Optional
+    *   ]);
+    *   
+    *   This object represents one row of the high scores table for a game.
+    */
+    public function GameHighScore(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/GameHighScore", $option);
+        return json_decode($jsonResponse);
+    }
+
 
     public function hook()
     {
