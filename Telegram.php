@@ -468,7 +468,7 @@ class Telegram extends \yii\base\Component
     *       'score' => Integer,  //Optional
     *   ]);
     *   
-    *   This object represents one row of the high scores table for a game.
+    *   This object represents one row of the high scores table for a game.	
     */
     public function GameHighScore(array $option = [])
     {
@@ -476,6 +476,24 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
 
+    //----------------------begin inline method--------------------------//
+    
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->answerInlineQuery([
+    *       'inline_query_id' => Integer, //Required-Position in high score table for the game
+    *       'user' => User, //Optional
+    *       'score' => Integer,  //Optional
+    *   ]);
+    *   
+    *   This object represents one row of the high scores table for a game.	
+    */
+    public function answerInlineQuery(array $option = [])
+    {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/answerInlineQuery", $option);
+        return json_decode($jsonResponse);
+    }
 
     public function hook()
     {

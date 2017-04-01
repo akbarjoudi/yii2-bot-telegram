@@ -92,6 +92,14 @@ getChatMembersCount
 getChatMember
 answerCallbackQuery
 editMessageText
+editMessageCaption
+sendGame
+Game
+Animation
+CallbackGame
+getGameHighScores
+GameHighScore
+answerInlineQuery
 ```
 
 Usage
