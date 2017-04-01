@@ -110,7 +110,7 @@ first add to config.php
 'components' => [
 	'telegram' => [
         'class' => 'aki\telegram\Telegram',
-        'botToken' => '123456:akiii',
+        'botToken' => '112488045:AAGs6CVXgaqC92pvt1u0L6Azfsdfd',
     ]
 ]
 ?>
