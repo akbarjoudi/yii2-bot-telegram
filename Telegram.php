@@ -192,16 +192,16 @@ class Telegram extends \yii\base\Component
     *   @var Array 
     *   sample
     *   Yii::$app->telegram->getUserProfilePhotos([
-    *       'chat_id' => $chat_id,
+    *       'user_id' => $chat_id,
     *       'offset' => $offset,//Sequential number of the first photo to be returned. By default, all photos are returned.
     *       'limit' => $limit, //Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
     *   ]);
     *   
     */
     public function getUserProfilePhotos($option){
-        $chat_id = $option['chat_id'];
+        $user_id = $option['user_id'];
         unset($option['chat_id']);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos?chat_id=".$chat_id, $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos?user_id=".$user_id, $option);
         return json_decode($jsonResponse);
     }
 
