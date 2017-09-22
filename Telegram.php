@@ -495,6 +495,28 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
 
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->kickChatMember([
+    *       'chat_id' => Integer, //Unique identifier for the target group or username of the target supergroup or channel
+    *       'user_id' => Integer, //Unique identifier of the target user
+    *       'until_date' => Integer,  //Date when the user will be unbanned, unix time. 
+    *								 //If user is banned for more than 366 days or less than 30 seconds from the 
+    *								//current time they are considered to be banned forever
+    *   ]);
+    *   
+    *   This object represents one row of the high scores table for a game.	
+    */
+    public function kickChatMember(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/kickChatMember?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
     public function hook()
     {
         $json = file_get_contents('php://input');
