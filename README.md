@@ -100,6 +100,17 @@ CallbackGame
 getGameHighScores
 GameHighScore
 answerInlineQuery
+setChatStickerSet
+deleteChatStickerSet
+leaveChat
+pinChatMessage
+unpinChatMessage
+setChatDescription
+setChatTitle
+deleteChatPhoto 
+exportChatInviteLink 
+promoteChatMember
+restrictChatMember
 ```
 
 Usage
