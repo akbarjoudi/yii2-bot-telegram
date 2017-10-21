@@ -2,7 +2,7 @@
 
 namespace aki\telegram;
 /**
- * This is just an example.
+ * @author Akbar Joudi <akbar.joody@gmail.com>
  */
 class Telegram extends \yii\base\Component
 {
@@ -516,6 +516,114 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/kickChatMember?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
+
+
+    /**
+    *   @var Array 
+    *   sample
+    *   Yii::$app->telegram->restrictChatMember([
+    *       'chat_id' => Integer, //Unique identifier for the target group or username of the target supergroup or *                              //channel
+    *       'user_id' => Integer, //Unique identifier of the target user
+    *       'until_date' => Integer,  //Date when the user will be unbanned, unix time. 
+    *								 //If user is banned for more than 366 days or less than 30 seconds from the 
+    *								//current time they are considered to be banned forever
+    *       'can_send_messages' => Boolean	//Pass True, if the user can send text messages, 
+    * 										//contacts, locations and venues
+    *   ]);
+    *   
+    *   Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for *    this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift *        restrictions from a user. Returns True on success.
+    */
+    public function restrictChatMember(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/restrictChatMember?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+
+    public function promoteChatMember(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/promoteChatMember?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function exportChatInviteLink(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/exportChatInviteLink?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function deleteChatPhoto(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/deleteChatPhoto?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function setChatTitle(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setChatTitle?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function setChatDescription(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setChatDescription?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function unpinChatMessage(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/unpinChatMessage?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+
+
+    public function pinChatMessage(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/pinChatMessage?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function leaveChat(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/leaveChat?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function setChatStickerSet(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setChatStickerSet?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+    public function deleteChatStickerSet(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/deleteChatStickerSet?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    
 
     public function hook()
     {
