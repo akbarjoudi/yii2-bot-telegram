@@ -628,7 +628,7 @@ class Telegram extends \yii\base\Component
     public function hook()
     {
         $json = file_get_contents('php://input');
-        return json_decode($json);
+        return json_decode($json, true);
     }
 
     /**
