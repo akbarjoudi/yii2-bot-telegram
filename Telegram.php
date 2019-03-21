@@ -8,6 +8,12 @@ class Telegram extends \yii\base\Component
 {
     public $botToken;
     public $botUsername;
+
+    /**
+     * @var string SOCKS5 proxy format string: <login>:<password>@<host>:<port>
+     */
+    public $proxy;
+
     public function getMe()
     {
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getMe");
@@ -653,6 +659,12 @@ class Telegram extends \yii\base\Component
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        if ($this->proxy !== null) {
+            // if a proxy string is specified, add header
+            curl_setopt($ch, CURLOPT_PROXY, "socks5://{$this->proxy}");
+        }
+
         if (count($option)) {
             curl_setopt($ch, CURLOPT_POST, true);
 
