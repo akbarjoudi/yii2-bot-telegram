@@ -14,6 +14,7 @@ class Telegram extends \yii\base\Component
      */
     public $proxy;
 
+
     public function getMe()
     {
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getMe");
@@ -30,13 +31,13 @@ class Telegram extends \yii\base\Component
     *       'disable_web_page_preview' => $disable_web_page_preview, 
     *   ]);
     */
-    public function sendMessage(array $option){
+    public function sendMessage(array $option, $headers=[]){
         $chat_id = $option['chat_id'];
         $text = urlencode($option['text']);
         unset($option['chat_id']);
         unset($option['text']);
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage?chat_id=".$chat_id
-                .'&text='.$text, $option);
+                .'&text='.$text, $option, $headers);
         return json_decode($jsonResponse);
     }
 
@@ -660,6 +661,10 @@ class Telegram extends \yii\base\Component
         curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
+        foreach ($headers as $key=>$val) {
+            curl_setopt($ch, constant($key), $val);
+        }
+
         if ($this->proxy !== null) {
             // if a proxy string is specified, add header
             curl_setopt($ch, CURLOPT_PROXY, "socks5://{$this->proxy}");
@@ -678,10 +683,8 @@ class Telegram extends \yii\base\Component
         }
         $r = curl_exec($ch);
         if($r == false){
-            $text = 'eroror '.curl_error($ch);
-            $myfile = fopen("error_telegram.log", "w") or die("Unable to open file!");
-            fwrite($myfile, $text);
-            fclose($myfile);
+            $text = date('Y-m-d H:i:s').' eroror '.curl_error($ch).PHP_EOL;
+            file_put_contents(\Yii::getAlias('@runtime/error_telegram.log'), $text, FILE_APPEND);
         }
         curl_close($ch);
         return $r;
