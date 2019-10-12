@@ -55,16 +55,26 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-Either run
+Add
 
 ```
-php composer.phar require aki/yii2-bot-telegram "*"
-```
-
-or add
-
-```
-"aki/yii2-bot-telegram": "*"
+"repositories": [
+    {
+        "type":"package",
+        "package": {
+          "name": "alekseymikitin/yii2-bot-telegram",
+          "version":"master",
+          "source": {
+              "url": "https://github.com/alekseymikitin/yii2-bot-telegram.git",
+              "type": "git",
+              "reference":"master"
+            }
+        }
+    }
+],
+"require": {
+    "alekseymikitin/yii2-bot-telegram": "master"
+}
 ```
 
 to the require section of your `composer.json` file.
