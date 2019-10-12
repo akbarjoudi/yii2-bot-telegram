@@ -28,14 +28,19 @@ class Telegram extends \yii\base\Component
     *   Yii::$app->telegram->sendMessage([
     *       'chat_id' => $chat_id,
     *       'text' => 'test',
-    *       'reply_markup' => json_encode($reply_markup)
-    *       'reply_to_message_id' => $reply_to_message_id,
-    *       'disable_web_page_preview' => $disable_web_page_preview, 
+    *       'reply_markup' => json_encode($reply_markup),               //Optional
+    *       'reply_to_message_id' => $reply_to_message_id,              //Optional
+    *       'disable_web_page_preview' => $disable_web_page_preview,    //Optional
+    *       'remove_keyboard' => <bool>,                                //Optional
+    *       'parse_mode' => 'Markdown' | 'HTML',                        //Optional
     *   ]);
     */
     public function sendMessage(array $option, $headers=[]){
-        $chat_id = $option['chat_id'];
+        $option['text'] = \preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return \mb_convert_encoding(\pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, $option['text']);
         $text = \urlencode($option['text']);
+        $chat_id = $option['chat_id'];
         unset($option['chat_id']);
         unset($option['text']);
         $jsonResponse = $this->curl_call($this->apiURL . $this->botToken . "/sendMessage?chat_id=".$chat_id
@@ -336,6 +341,8 @@ class Telegram extends \yii\base\Component
     *       'parse_mode' => 123231,  //Optional
     *       'disable_web_page_preview' => false or true,  //Optional
     *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
+    *       'remove_keyboard' => <bool>,                  //Optional
+    *       'parse_mode' => 'Markdown' | 'HTML',          //Optional
     *   ]);
     *   Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). On success,
     *  if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
