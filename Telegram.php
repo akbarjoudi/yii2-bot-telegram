@@ -738,11 +738,12 @@ class Telegram extends \yii\base\Component
     
     //Call the function in input action by Hook-URL
     public function getContentFromHook(){
-        if(!empty($this->hookContent))
-            return $this->hookContent;
-        $content = \file_get_contents("php://input");
-        $content = \json_decode($content, TRUE);
-        $this->hookContent = $content;
+        if(empty($this->hookContent)) {
+            $content = \file_get_contents("php://input");
+            $content = \json_decode($content, TRUE);
+            $this->hookContent = $content;
+        }
+        return $this->hookContent;
     }
 
 }
