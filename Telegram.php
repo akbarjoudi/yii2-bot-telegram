@@ -649,12 +649,11 @@ class Telegram extends \yii\base\Component
         return \json_decode($jsonResponse);
     }
 
-    
+
 
     public function hook()
     {
-        $json = \file_get_contents('php://input');
-        return \json_decode($json);
+        $this->getContentFromHook();
     }
 
     /**
