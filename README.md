@@ -122,6 +122,7 @@ first add to config.php
 	'telegram' => [
         'class' => 'aki\telegram\Telegram',
         'botToken' => '112488045:AAGs6CVXgaqC92pvt1u0L6Azfsdfd',
+        'apiURL' => "https://api.telegram.org/bot"
     ]
 ]
 ?>

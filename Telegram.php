@@ -691,7 +691,7 @@ class Telegram extends \yii\base\Component
         $r = \curl_exec($ch);
         if($r == false){
             $text = \date('Y-m-d H:i:s').' eroror '.curl_error($ch).PHP_EOL;
-            \file_put_contents(\Yii::getAlias('@runtime/error_telegram.log'), $text, FILE_APPEND);
+            \file_put_contents(\Yii::getAlias('@runtime/error_telegram.log'), $text, FILE_APPEND | LOCK_EX);
         }
         \curl_close($ch);
         return $r;
