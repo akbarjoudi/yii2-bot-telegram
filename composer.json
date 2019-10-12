@@ -1,13 +1,13 @@
 {
-    "name": "aki/yii2-bot-telegram",
+    "name": "alekseymikitin/yii2-bot-telegram",
     "description": "bot telegram",
     "type": "yii2-extension",
     "keywords": ["yii2","extension"],
     "license": "LGPL-3.0+",
     "authors": [
         {
-            "name": "akbarjoudi",
-            "email": "akbar.joody@gmail.ocm"
+            "name": "alex.mikitin",
+            "email": "alex.mikitin@gmail.com"
         }
     ],
     "require": {
