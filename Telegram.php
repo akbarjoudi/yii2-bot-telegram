@@ -40,11 +40,20 @@ class Telegram extends \yii\base\Component
             return \mb_convert_encoding(\pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
         }, $option['text']);
         $text = \urlencode($option['text']);
-        $chat_id = $option['chat_id'];
+        $chat_ids = $option['chat_id'];
         unset($option['chat_id']);
         unset($option['text']);
-        $jsonResponse = $this->curl_call($this->apiURL . $this->botToken . "/sendMessage?chat_id=".$chat_id
-                .'&text='.$text, $option, $headers);
+        if(\is_array($chat_ids)) {
+            $jsonResponses =[];
+            foreach ($chat_ids as $chat_id){
+                $jsonResponse = $this->curl_call($this->apiURL . $this->botToken . "/sendMessage?chat_id=".$chat_id
+                    .'&text='.$text, $option, $headers);
+                $jsonResponses[] = $jsonResponse;
+            }
+            return $jsonResponses;
+        }
+        $jsonResponse = $this->curl_call($this->apiURL . $this->botToken . "/sendMessage?chat_id=".$chat_ids
+            .'&text='.$text, $option, $headers);
         return \json_decode($jsonResponse);
     }
 
@@ -714,6 +723,16 @@ class Telegram extends \yii\base\Component
             return new \CURLFile($realPath);
 
         return '@' . $realPath;
+    }
+
+    /**
+     * @param $message
+     * @return bool
+     */
+    public function isCommand($message){
+        if(!empty(@$message['entities']) && $message['entities'][0]['type']=='bot_command')
+            return true;
+        return false;
     }
 
 }
