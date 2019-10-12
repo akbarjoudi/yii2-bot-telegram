@@ -10,6 +10,7 @@ class Telegram extends \yii\base\Component
     public $botUsername;
     public $enabled = false;
     public $apiURL;
+    public $hookContent;
 
     /**
      * @var string SOCKS5 proxy format string: <login>:<password>@<host>:<port>
@@ -733,6 +734,15 @@ class Telegram extends \yii\base\Component
         if(!empty(@$message['entities']) && $message['entities'][0]['type']=='bot_command')
             return true;
         return false;
+    }
+    
+    //Call the function in input action by Hook-URL
+    public function getContentFromHook(){
+        if(!empty($this->hookContent))
+            return $this->hookContent;
+        $content = \file_get_contents("php://input");
+        $content = \json_decode($content, TRUE);
+        $this->hookContent = $content;
     }
 
 }
