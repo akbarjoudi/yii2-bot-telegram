@@ -20,14 +20,14 @@ class Telegram extends \yii\base\Component
         return $jsonResponse;
     }
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendMessage([
     *       'chat_id' => $chat_id,
     *       'text' => 'test',
     *       'reply_markup' => json_encode($reply_markup)
     *       'reply_to_message_id' => $reply_to_message_id,
-    *       'disable_web_page_preview' => $disable_web_page_preview, 
+    *       'disable_web_page_preview' => $disable_web_page_preview,
     *   ]);
     */
     public function sendMessage(array $option){
@@ -41,7 +41,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->forwardMessage([
     *       'chat_id' => $chat_id,
@@ -55,9 +55,9 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/forwardMessage?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendPhoto([
     *       'chat_id' => $chat_id,
@@ -76,12 +76,12 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendAudio[
     *       'chat_id' => $chat_id,
     *       'audio' => 'path/to/test.ogg',//realpath
-    *       'caption' => '', 
+    *       'caption' => '',
     *       'duration' => 0,
     *       'reply_to_message_id' => $reply_to_message_id,
     *       'reply_markup' => $reply_markup
@@ -98,7 +98,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendDocument([
     *       'chat_id' => $chat_id,
@@ -117,9 +117,9 @@ class Telegram extends \yii\base\Component
                 .'&caption='.$caption, $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendSticker([
     *       'chat_id' => $chat_id,
@@ -134,9 +134,9 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendSticker?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendVideo([
     *       'chat_id' => $chat_id,
@@ -159,7 +159,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendVideo([
     *       'chat_id' => $chat_id,
@@ -178,14 +178,14 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendChatAction([
     *       'chat_id' => $chat_id,
-    *       'action' => 'upload_photo',// upload_photo or  record_video  or  upload_video or record_audio or 
+    *       'action' => 'upload_photo',// upload_photo or  record_video  or  upload_video or record_audio or
     *       // upload_audio or upload_document or find_location
     *   ]);
-    *   
+    *
     */
     public function sendChatAction(array $option){
         $chat_id = $option['chat_id'];
@@ -193,16 +193,16 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendChatAction?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getUserProfilePhotos([
     *       'user_id' => $chat_id,
     *       'offset' => $offset,//Sequential number of the first photo to be returned. By default, all photos are returned.
     *       'limit' => $limit, //Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
     *   ]);
-    *   
+    *
     */
     public function getUserProfilePhotos($option){
         $user_id = $option['user_id'];
@@ -212,18 +212,18 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getUpdates([
-    *       'offset' => $offset,//Identifier of the first update to be returned. Must be greater by one than the highest among the *            //identifiers of previously received updates. 
+    *       'offset' => $offset,//Identifier of the first update to be returned. Must be greater by one than the highest among the *            //identifiers of previously received updates.
     *           //By default, updates starting with the earliest unconfirmed update are returned.
     *           //An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id.
-    *           //The negative offset can be specified to retrieve updates starting from -offset 
+    *           //The negative offset can be specified to retrieve updates starting from -offset
     *           //update from the end of the updates queue.
     *       'limit' => $limit,//Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100.
     *       'timeout' => $timeout,//Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling
     *   ]);
-    *   
+    *
     */
     public function getUpdates(array $option = [])
     {
@@ -232,12 +232,12 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->setWebhook([
     *       'url' => $url,
     *   ]);
-    *   
+    *
     */
     public function setWebhook(array $option = []){
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setWebhook", $option);
@@ -245,12 +245,12 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getChat([
     *       'chat_id' => '3343545121',
     *   ]);
-    *   
+    *
     */
     public function getChat(array $option = [])
     {
@@ -259,7 +259,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getChatAdministrators([
     *       'chat_id' => '3343545121',
@@ -273,7 +273,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getChatMembersCount([
     *       'chat_id' => '3343545121',
@@ -287,10 +287,10 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getChatMember([
-    *       'chat_id' => '3343545121', //Unique identifier for the target chat or 
+    *       'chat_id' => '3343545121', //Unique identifier for the target chat or
     *            //username of the target supergroup or channel (in  the format @channelusername)
     *       'user_id' => 243243,//Unique identifier of the target user
     *   ]);
@@ -301,9 +301,9 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getChatMember", $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->answerCallbackQuery([
     *       'callback_query_id' => '3343545121', //require
@@ -312,7 +312,7 @@ class Telegram extends \yii\base\Component
     *       'url' => 'http://sample.com', //Optional
     *       'cache_time' => 123231,  //Optional
     *   ]);
-    *   Use this method to send answers to callback queries sent from inline keyboards. 
+    *   Use this method to send answers to callback queries sent from inline keyboards.
     *   The answer will be displayed to the user as a notification at the top of the chat screen or as an alert.
     *  On success, True is returned.
     */
@@ -321,9 +321,9 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/answerCallbackQuery", $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->editMessageText([
     *       'chat_id' => '3343545121', //Optional
@@ -342,9 +342,9 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/editMessageText", $option);
         return json_decode($jsonResponse);
     }
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->editMessageText([
     *       'chat_id' => '3343545121', //Required
@@ -353,8 +353,8 @@ class Telegram extends \yii\base\Component
     *       'caption' => 'my text', //require
     *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
     *   ]);
-    *   
-    *   Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). On success, 
+    *
+    *   Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). On success,
     *    if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
     */
     public function editMessageCaption(array $option = [])
@@ -364,7 +364,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->sendGame([
     *       'chat_id' => '3343545121', //Required
@@ -373,8 +373,8 @@ class Telegram extends \yii\base\Component
     *       'reply_to_message_id' => 123121, //Optional
     *       'reply_markup' => Type InlineKeyboardMarkup,  //Optional
     *   ]);
-    *   
-    *   Use this method to send a game. On success, the sent Message is returned. 
+    *
+    *   Use this method to send a game. On success, the sent Message is returned.
     */
     public function sendGame(array $option = [])
     {
@@ -383,7 +383,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->Game([
     *       'title' => 'Title of the game', //Required
@@ -393,8 +393,8 @@ class Telegram extends \yii\base\Component
     *       'text_entities' => Array of MessageEntity,  //Optional
     *		'animation' => instance of Animation, //Optional
     *   ]);
-    *   
-    *   Use this method to send a game. On success, the sent Message is returned. 
+    *
+    *   Use this method to send a game. On success, the sent Message is returned.
     */
     public function Game(array $option = [])
     {
@@ -403,7 +403,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->Animation([
     *       'file_id' => String, //Required
@@ -411,10 +411,10 @@ class Telegram extends \yii\base\Component
     *       'file_name' => String,  //Optional
     *       'mime_type' => String, //Optional
     *   ]);
-    *   
-    *   You can provide an animation for your game so that it looks stylish 
-    * 	in chats (check out Lumberjack for an example). This object represents an animation file to 
-    * 	be displayed in the message containing a game. 
+    *
+    *   You can provide an animation for your game so that it looks stylish
+    * 	in chats (check out Lumberjack for an example). This object represents an animation file to
+    * 	be displayed in the message containing a game.
     */
     public function Animation(array $option = [])
     {
@@ -423,7 +423,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->CallbackGame([
     *       'user_id' => Integer, //Required
@@ -434,7 +434,7 @@ class Telegram extends \yii\base\Component
 	*       'message_id' => Integer,  //Optional
 	*       'inline_message_id' => String,  //Optional
     *   ]);
-    *   
+    *
     *   Use this method to set the score of the specified user in a game. On success,
     *	if the message was sent by the bot, returns the edited Message, otherwise returns True.
     *	Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
@@ -446,7 +446,7 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->getGameHighScores([
     *       'user_id' => Integer, //Required
@@ -454,8 +454,8 @@ class Telegram extends \yii\base\Component
     *       'message_id' => Integer,  //Optional
     *       'inline_message_id' => String, //Optional
     *   ]);
-    *   
-    *   Use this method to get data for high score tables. 
+    *
+    *   Use this method to get data for high score tables.
     *	Will return the score of the specified user and several of his neighbors in a game.
     *	On success, returns an Array of GameHighScore objects.
     */
@@ -466,15 +466,15 @@ class Telegram extends \yii\base\Component
     }
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->GameHighScore([
     *       'position' => Integer, //Required-Position in high score table for the game
     *       'user' => User, //Optional
     *       'score' => Integer,  //Optional
     *   ]);
-    *   
-    *   This object represents one row of the high scores table for a game.	
+    *
+    *   This object represents one row of the high scores table for a game.
     */
     public function GameHighScore(array $option = [])
     {
@@ -483,17 +483,17 @@ class Telegram extends \yii\base\Component
     }
 
     //----------------------begin inline method--------------------------//
-    
+
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->answerInlineQuery([
     *       'inline_query_id' => Integer, //Required-Position in high score table for the game
     *       'user' => User, //Optional
     *       'score' => Integer,  //Optional
     *   ]);
-    *   
-    *   This object represents one row of the high scores table for a game.	
+    *
+    *   This object represents one row of the high scores table for a game.
     */
     public function answerInlineQuery(array $option = [])
     {
@@ -503,17 +503,17 @@ class Telegram extends \yii\base\Component
 
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->kickChatMember([
     *       'chat_id' => Integer, //Unique identifier for the target group or username of the target supergroup or channel
     *       'user_id' => Integer, //Unique identifier of the target user
-    *       'until_date' => Integer,  //Date when the user will be unbanned, unix time. 
-    *								 //If user is banned for more than 366 days or less than 30 seconds from the 
+    *       'until_date' => Integer,  //Date when the user will be unbanned, unix time.
+    *								 //If user is banned for more than 366 days or less than 30 seconds from the
     *								//current time they are considered to be banned forever
     *   ]);
-    *   
-    *   This object represents one row of the high scores table for a game.	
+    *
+    *   This object represents one row of the high scores table for a game.
     */
     public function kickChatMember(array $option = [])
     {
@@ -525,18 +525,18 @@ class Telegram extends \yii\base\Component
 
 
     /**
-    *   @var Array 
+    *   @var Array
     *   sample
     *   Yii::$app->telegram->restrictChatMember([
     *       'chat_id' => Integer, //Unique identifier for the target group or username of the target supergroup or *                              //channel
     *       'user_id' => Integer, //Unique identifier of the target user
-    *       'until_date' => Integer,  //Date when the user will be unbanned, unix time. 
-    *								 //If user is banned for more than 366 days or less than 30 seconds from the 
+    *       'until_date' => Integer,  //Date when the user will be unbanned, unix time.
+    *								 //If user is banned for more than 366 days or less than 30 seconds from the
     *								//current time they are considered to be banned forever
-    *       'can_send_messages' => Boolean	//Pass True, if the user can send text messages, 
+    *       'can_send_messages' => Boolean	//Pass True, if the user can send text messages,
     * 										//contacts, locations and venues
     *   ]);
-    *   
+    *
     *   Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for *    this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift *        restrictions from a user. Returns True on success.
     */
     public function restrictChatMember(array $option = [])
@@ -561,6 +561,14 @@ class Telegram extends \yii\base\Component
     	$chat_id = $option['chat_id'];
         unset($option['chat_id']);
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/exportChatInviteLink?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+    public function deleteMessage(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/deleteMessage?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
 
@@ -596,8 +604,6 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
 
-
-
     public function pinChatMessage(array $option = [])
     {
     	$chat_id = $option['chat_id'];
@@ -621,6 +627,7 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setChatStickerSet?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
+
     public function deleteChatStickerSet(array $option = [])
     {
     	$chat_id = $option['chat_id'];
@@ -628,8 +635,6 @@ class Telegram extends \yii\base\Component
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/deleteChatStickerSet?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
-
-    
 
     public function hook()
     {
@@ -654,7 +659,7 @@ class Telegram extends \yii\base\Component
 
     private function curl_call($url, $option=array(), $headers=array()){
         $attachments = ['photo', 'sticker', 'audio', 'document', 'video'];
-        
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
@@ -674,7 +679,7 @@ class Telegram extends \yii\base\Component
                     break;
                 }
             }
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $option); 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $option);
         }
         $r = curl_exec($ch);
         if($r == false){
