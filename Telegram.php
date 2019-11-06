@@ -247,6 +247,17 @@ class Telegram extends \yii\base\Component
     /**
     *   @var Array
     *   sample
+    *   Yii::$app->telegram->deleteWebhook();
+    *
+    */
+    public function deleteWebhook(array $option = []){
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setWebhook", $option);
+        return json_decode($jsonResponse);
+    }
+
+    /**
+    *   @var Array
+    *   sample
     *   Yii::$app->telegram->getChat([
     *       'chat_id' => '3343545121',
     *   ]);
