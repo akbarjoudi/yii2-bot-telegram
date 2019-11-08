@@ -538,6 +538,25 @@ class Telegram extends \yii\base\Component
     /**
     *   @var Array
     *   sample
+    *   Yii::$app->telegram->unbanChatMember([
+    *       'chat_id' => Integer, //Unique identifier for the target group or username of the target supergroup or channel
+    *       'user_id' => Integer, //Unique identifier of the target user
+    *   ]);
+    *
+    *   This object represents one row of the high scores table for a game.
+    */
+    public function unbanChatMember(array $option = [])
+    {
+    	$chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/unbanChatMember?chat_id=".$chat_id, $option);
+        return json_decode($jsonResponse);
+    }
+
+
+    /**
+    *   @var Array
+    *   sample
     *   Yii::$app->telegram->restrictChatMember([
     *       'chat_id' => Integer, //Unique identifier for the target group or username of the target supergroup or *                              //channel
     *       'user_id' => Integer, //Unique identifier of the target user
