@@ -673,13 +673,30 @@ class Telegram extends \yii\base\Component
 
     /**
     * Yii::$app->telegram->getFile([
-	*		'file_id' => $file_id
+	  *		'file_id' => $file_id
     *	]);
     *
     */
     public function getFile($option) {
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getFile", $option);
         return json_decode($jsonResponse);
+    }
+
+    /**
+    * Yii::$app->telegram->getFileUrl([
+	  *		'file_id' => $file_id
+    *	]);
+    *
+    * Return file url by file_id
+    */
+    public function getFileUrl($option) {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getFile", $option);
+        $result = json_decode($jsonResponse);
+        if ($result->ok && isset($result->result) && isset($result->result->file_path))
+        {
+          return "https://api.telegram.org/file/bot" . $this->botToken . "/" . $result->result->file_path;
+        }
+        return false;
     }
 
     private function array_push_assoc(&$array, $key, $value){
