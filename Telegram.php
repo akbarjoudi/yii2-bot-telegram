@@ -251,7 +251,7 @@ class Telegram extends \yii\base\Component
     *
     */
     public function deleteWebhook(array $option = []){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setWebhook", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/deleteWebhook", $option);
         return json_decode($jsonResponse);
     }
 
@@ -543,7 +543,6 @@ class Telegram extends \yii\base\Component
     *       'user_id' => Integer, //Unique identifier of the target user
     *   ]);
     *
-    *   This object represents one row of the high scores table for a game.
     */
     public function unbanChatMember(array $option = [])
     {
