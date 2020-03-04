@@ -205,7 +205,7 @@ class Telegram extends \yii\base\Component
     *
     */
     public function getUserProfilePhotos($option){
-        $user_id = $option['user_id'];
+        $user_id = $option['chat_id'];
         unset($option['chat_id']);
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getUserProfilePhotos?user_id=".$user_id, $option);
         return json_decode($jsonResponse);
