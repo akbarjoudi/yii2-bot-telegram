@@ -69,9 +69,10 @@ class Telegram extends \yii\base\Component
     */
     public function sendPhoto(array $option){
         $chat_id = $option['chat_id'];
+        $photo = $option['photo'];
         unset($option['chat_id']);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" .
-                $this->botToken . "/sendPhoto?chat_id=".$chat_id, $option);
+        unset($option['photo']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto?chat_id=".$chat_id . "&photo=".$photo, $option);
         return json_decode($jsonResponse);
     }
 
