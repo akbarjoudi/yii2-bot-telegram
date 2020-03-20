@@ -69,9 +69,10 @@ class Telegram extends \yii\base\Component
     */
     public function sendPhoto(array $option){
         $chat_id = $option['chat_id'];
+        $photo = $option['photo'];
         unset($option['chat_id']);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" .
-                $this->botToken . "/sendPhoto?chat_id=".$chat_id, $option);
+        unset($option['photo']);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto?chat_id=".$chat_id . "&photo=".$photo, $option);
         return json_decode($jsonResponse);
     }
 
@@ -251,7 +252,7 @@ class Telegram extends \yii\base\Component
     *
     */
     public function deleteWebhook(array $option = []){
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/setWebhook", $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/deleteWebhook", $option);
         return json_decode($jsonResponse);
     }
 
@@ -543,7 +544,6 @@ class Telegram extends \yii\base\Component
     *       'user_id' => Integer, //Unique identifier of the target user
     *   ]);
     *
-    *   This object represents one row of the high scores table for a game.
     */
     public function unbanChatMember(array $option = [])
     {
@@ -674,13 +674,30 @@ class Telegram extends \yii\base\Component
 
     /**
     * Yii::$app->telegram->getFile([
-	*		'file_id' => $file_id
+	  *		'file_id' => $file_id
     *	]);
     *
     */
     public function getFile($option) {
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getFile", $option);
         return json_decode($jsonResponse);
+    }
+
+    /**
+    * Yii::$app->telegram->getFileUrl([
+	  *		'file_id' => $file_id
+    *	]);
+    *
+    * Return file url by file_id
+    */
+    public function getFileUrl($option) {
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/getFile", $option);
+        $result = json_decode($jsonResponse);
+        if ($result->ok && isset($result->result) && isset($result->result->file_path))
+        {
+          return "https://api.telegram.org/file/bot" . $this->botToken . "/" . $result->result->file_path;
+        }
+        return false;
     }
 
     private function array_push_assoc(&$array, $key, $value){
