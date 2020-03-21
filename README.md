@@ -159,3 +159,30 @@ send photo by :
 
 
 
+Usage in controller
+-----
+
+First of all you need to disable the enableCsrfValidation feature in the controller
+
+The robot is currently running from your server
+But when we start /start run the robot from the telegram application on the mobile, the request does not reach the action inside the controller because the telegram sends the request to the POST and yii requests it without csrf
+Sends Bad Request (# 400). So then the code doesn't run inside your method
+
+Consider the following example
+```php
+class SiteController extends Controller
+{
+	public $enableCsrfValidation = false;
+
+	public function actionIndex()
+    {
+        $res = Yii::$app->telegram->sendMessage([
+            'chat_id' => $chat_id,
+            'text' => 'hello world!!' 
+        ]);
+       return $this->render('index');
+    }
+}
+```
+
+
