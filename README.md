@@ -1,6 +1,10 @@
+<h1 align="center">
 Yii2 bot telegram
-============
-for web application yii2
+</h1>
+<p align="center">
+	<img width="200px" src="https://i.ibb.co/JQxDZWH/telegram.png">
+</p>
+
 
 Create your first bot
 ------------
