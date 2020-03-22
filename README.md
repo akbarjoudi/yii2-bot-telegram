@@ -185,4 +185,16 @@ class SiteController extends Controller
 }
 ```
 
+## :bulb: Sample Code:
 
+
+### How to get user chat_id from the bot ?
+>__You can use : `$telegram->input->message->from->id` to get chat_id__
+
+Sample widget class :
+```php
+$res = Yii::$app->telegram->sendMessage([
+	'chat_id' => $telegram->input->message->from->id,
+	'text' => "salam"
+]);
+```
