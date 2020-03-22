@@ -2,11 +2,12 @@
 
 namespace aki\telegram\base;
 
+use yii\base\Component;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  */
-class TelegramBase extends Type
+class TelegramBase extends Component
 {
     public $apiUrl = "https://api.telegram.org/bot";
     /**
