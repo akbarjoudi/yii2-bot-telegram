@@ -1,31 +1,30 @@
 <?php
 namespace aki\telegram\base;
 
-use aki\telegram\types\Message;
+use aki\telegram\types\Result;
 
 /**
  * 
  */
 class Response extends Type
 {
-    public $update_id;
+    /**
+     * 
+     */
+    public $ok;
 
-    private $_message;
-
-    public function init()
+    /**
+     * 
+     */
+    private $_result;
+    
+    public function getResult()
     {
-        parent::init();
-
-        // ... initialization after configuration is applied
+        return $this->_result;
     }
 
-    public function getMessage()
+    public function setResult($value)
     {
-        return $this->_message;
-    }
-
-    public function setMessage($value)
-    {
-        $this->_message = new Message($value);
+        $this->_result = new Result($value);
     }
 }

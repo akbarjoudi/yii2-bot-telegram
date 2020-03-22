@@ -8,6 +8,7 @@ namespace aki\telegram\base;
  */
 class TelegramBase extends Type
 {
+    public $apiUrl = "https://api.telegram.org/bot";
     /**
      * Token taken from botFather
      * @var string
@@ -25,9 +26,10 @@ class TelegramBase extends Type
     public $proxy;
 
     /**
-     * @var aki\components\Response
+     * Data sent to us from the telegram server
+     * @var aki\components\input
      */
-    private $_response;
+    private $_input;
 
     /**
      * 
@@ -39,7 +41,7 @@ class TelegramBase extends Type
 
         $input = file_get_contents("php://input");
         $array= json_decode($input, true);
-        $this->response = new Response($array);
+        $this->input = new Input($array);
 
     }
 
@@ -47,17 +49,17 @@ class TelegramBase extends Type
     /**
      * 
      */
-    public function getResponse()
+    public function getInput()
     {
-        return $this->_response;
+        return $this->_input;
     }
 
     /**
      * 
      */
-    public function setResponse($res)
+    public function setInput($res)
     {
-        $this->_response = $res;
+        $this->_input = $res;
     }
 
     public function hook()
