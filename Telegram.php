@@ -1,18 +1,14 @@
 <?php
 
 namespace aki\telegram;
+
+use aki\telegram\base\Response;
+use aki\telegram\base\TelegramBase;
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  */
-class Telegram extends \yii\base\Component
+class Telegram extends TelegramBase
 {
-    public $botToken;
-    public $botUsername;
-
-    /**
-     * @var string SOCKS5 proxy format string: <login>:<password>@<host>:<port>
-     */
-    public $proxy;
 
     public function getMe()
     {
@@ -37,7 +33,7 @@ class Telegram extends \yii\base\Component
         unset($option['text']);
         $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendMessage?chat_id=".$chat_id
                 .'&text='.$text, $option);
-        return json_decode($jsonResponse);
+        return new Response(json_decode($jsonResponse, true));
     }
 
     /**
@@ -69,10 +65,8 @@ class Telegram extends \yii\base\Component
     */
     public function sendPhoto(array $option){
         $chat_id = $option['chat_id'];
-        $photo = $option['photo'];
         unset($option['chat_id']);
-        unset($option['photo']);
-        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto?chat_id=".$chat_id . "&photo=".$photo, $option);
+        $jsonResponse = $this->curl_call("https://api.telegram.org/bot" . $this->botToken . "/sendPhoto?chat_id=".$chat_id, $option);
         return json_decode($jsonResponse);
     }
 
@@ -666,12 +660,6 @@ class Telegram extends \yii\base\Component
         return json_decode($jsonResponse);
     }
 
-    public function hook()
-    {
-        $json = file_get_contents('php://input');
-        return json_decode($json);
-    }
-
     /**
     * Yii::$app->telegram->getFile([
 	  *		'file_id' => $file_id
@@ -699,56 +687,5 @@ class Telegram extends \yii\base\Component
         }
         return false;
     }
-
-    private function array_push_assoc(&$array, $key, $value){
-       $array[$key] = $value;
-    }
-
-    private function curl_call($url, $option=array(), $headers=array()){
-        $attachments = ['photo', 'sticker', 'audio', 'document', 'video'];
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        if ($this->proxy !== null) {
-            // if a proxy string is specified, add header
-            curl_setopt($ch, CURLOPT_PROXY, "socks5://{$this->proxy}");
-        }
-
-        if (count($option)) {
-            curl_setopt($ch, CURLOPT_POST, true);
-
-            foreach($attachments as $attachment){
-                if(isset($option[$attachment])){
-                    $option[$attachment] = $this->curlFile($option[$attachment]);
-                    break;
-                }
-            }
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $option);
-        }
-        $r = curl_exec($ch);
-        if($r == false){
-            $text = 'eroror '.curl_error($ch);
-            $myfile = fopen("error_telegram.log", "w") or die("Unable to open file!");
-            fwrite($myfile, $text);
-            fclose($myfile);
-        }
-        curl_close($ch);
-        return $r;
-    }
-
-    private function curlFile($path){
-        if (is_array($path))
-            return $path['file_id'];
-
-        $realPath = realpath($path);
-
-        if (class_exists('CURLFile'))
-            return new \CURLFile($realPath);
-
-        return '@' . $realPath;
-    }
-
+    
 }

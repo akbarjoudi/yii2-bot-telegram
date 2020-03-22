@@ -1,0 +1,28 @@
+<?php
+namespace aki\telegram\types;
+
+
+use aki\telegram\base\Type;
+
+/**
+ * @author Akbar Joudi <akbar.joody@gmail.com>
+ * This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
+ */
+class Animation extends Type
+{
+    public $file_id;
+
+    public $file_unique_id;
+
+    public $width;
+
+    public $height;
+
+    public $duration;
+
+    public $thumb;
+
+    public $mime_type;
+
+    public $file_size;
+}
