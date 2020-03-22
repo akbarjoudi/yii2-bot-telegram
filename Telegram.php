@@ -156,7 +156,7 @@ class Telegram extends TelegramBase
     /**
     *   @var Array
     *   sample
-    *   Yii::$app->telegram->sendVideo([
+    *   Yii::$app->telegram->sendLocation([
     *       'chat_id' => $chat_id,
     *       'latitude' => 37.7576793,
     *       'longitude' => -122.5076402,
@@ -169,6 +169,42 @@ class Telegram extends TelegramBase
         $chat_id = $option['chat_id'];
         unset($option['chat_id']);
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendLocation?chat_id=".$chat_id, $option);
+        return new Response(json_decode($jsonResponse, true));
+    }
+
+    /**
+    *   @var Array
+    *   sample
+    *   Yii::$app->telegram->editMessageLiveLocation([
+    *       'chat_id' => $chat_id,
+    *       'message_id' => 132121,
+    *       'inline_message_id' => 321344,
+    *       'latitude' => 123.4
+    *       'longitude' => 123.4,
+    *       'reply_markup' => InlineKeyboardMarkup
+    *   ]);
+    */
+    public function editMessageLiveLocation(array $option){
+        $chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/editMessageLiveLocation?chat_id=".$chat_id, $option);
+        return new Response(json_decode($jsonResponse, true));
+    }
+
+    /**
+    *   @var Array
+    *   sample
+    *   Yii::$app->telegram->stopMessageLiveLocation([
+    *       'chat_id' => $chat_id,
+    *       'message_id' => 132121,
+    *       'inline_message_id' => 321344,
+    *       'reply_markup' => InlineKeyboardMarkup
+    *   ]);
+    */
+    public function stopMessageLiveLocation(array $option){
+        $chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/stopMessageLiveLocation?chat_id=".$chat_id, $option);
         return new Response(json_decode($jsonResponse, true));
     }
 

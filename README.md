@@ -4,7 +4,14 @@ Yii2 bot telegram
 <p align="center">
 	<img width="200px" src="https://i.ibb.co/JQxDZWH/telegram.png">
 </p>
-
+<p align="center">
+	
+[![Latest Stable Version](https://poser.pugx.org/aki/yii2-bot-telegram/v/stable)](https://packagist.org/packages/aki/yii2-bot-telegram)
+[![Total Downloads](https://poser.pugx.org/aki/yii2-bot-telegram/downloads)](https://packagist.org/packages/aki/yii2-bot-telegram)
+[![Latest Unstable Version](https://poser.pugx.org/aki/yii2-bot-telegram/v/unstable)](https://packagist.org/packages/aki/yii2-bot-telegram)
+[![License](https://poser.pugx.org/aki/yii2-bot-telegram/license)](https://packagist.org/packages/aki/yii2-bot-telegram)
+[![Monthly Downloads](https://poser.pugx.org/aki/yii2-bot-telegram/d/monthly)](https://packagist.org/packages/aki/yii2-bot-telegram)
+</p>
 
 Create your first bot
 ------------
@@ -115,6 +122,10 @@ deleteChatPhoto
 exportChatInviteLink 
 promoteChatMember
 restrictChatMember
+unbanChatMember
+kickChatMember
+editMessageLiveLocation
+stopMessageLiveLocation
 ```
 
 Usage
