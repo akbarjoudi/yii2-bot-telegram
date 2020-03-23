@@ -204,7 +204,7 @@ class SiteController extends Controller
 
 
 ### How to get user chat_id from the bot ?
->__You can use : `$telegram->input->message->from->id` to get chat_id__
+>__You can use : `$telegram->input->message->chat->id` to get chat_id__
 
 Sample widget class :
 ```php
