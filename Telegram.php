@@ -67,7 +67,7 @@ class Telegram extends TelegramBase
         $chat_id = $option['chat_id'];
         unset($option['chat_id']);
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendPhoto?chat_id=".$chat_id, $option);
-        return new Response(json_decode($jsonResponse, true));
+        return (json_decode($jsonResponse, true));
     }
 
     /**

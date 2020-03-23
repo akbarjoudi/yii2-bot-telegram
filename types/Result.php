@@ -19,6 +19,13 @@ class Result extends Type
 
    public $text;
 
+   private $_audio;
+
+   private $_photo;
+
+   public $caption;
+
+   public $error_code;
 
    /**
     * 
@@ -50,5 +57,25 @@ class Result extends Type
     public function setChat($value)
     {
        $this->_chat = new Chat($value);
+    }
+
+    public function getAudio()
+    {
+       return $this->_audio;
+    }
+
+    public function setAudio($value)
+    {
+       $this->_audio = new Audio($value);
+    }
+
+    public function getPhoto()
+    {
+       return $this->_photo;
+    }
+
+    public function setPhoto($value)
+    {
+       $this->_photo = new Photo($value);
     }
 }
