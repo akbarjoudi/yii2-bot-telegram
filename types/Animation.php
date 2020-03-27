@@ -20,9 +20,22 @@ class Animation extends Type
 
     public $duration;
 
-    public $thumb;
+    private $_thumb;
+
+    public $file_name;
 
     public $mime_type;
 
     public $file_size;
+
+
+    public function getThumb()
+    {
+        return $this->_thumb;
+    }
+
+    public function setThumb($value)
+    {
+        $this->_thumb = new PhotoSize($value);
+    }
 }

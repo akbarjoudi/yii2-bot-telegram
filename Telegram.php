@@ -1,5 +1,4 @@
 <?php
-
 namespace aki\telegram;
 
 use aki\telegram\base\Response;
@@ -33,7 +32,7 @@ class Telegram extends TelegramBase
         unset($option['text']);
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendMessage?chat_id=".$chat_id
                 .'&text='.$text, $option);
-        return new Response(json_decode($jsonResponse, true));
+        return $jsonResponse;
     }
 
     /**
@@ -67,7 +66,7 @@ class Telegram extends TelegramBase
         $chat_id = $option['chat_id'];
         unset($option['chat_id']);
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendPhoto?chat_id=".$chat_id, $option);
-        return (json_decode($jsonResponse, true));
+        return new Response(json_decode($jsonResponse, true));
     }
 
     /**
@@ -133,13 +132,60 @@ class Telegram extends TelegramBase
     /**
     *   @var Array
     *   sample
+    *   Yii::$app->telegram->sendSticker([
+    *       'chat_id' => $chat_id,
+    *       'voice' => InputFile or String
+    *       'caption' => String,
+    *       'parse_mode' => parse_mode,
+    *       'duration' => Integer,
+    *       'disable_notification' => Boolean,
+    *       'reply_to_message_id' => Integer,
+    *       'reply_markup' => InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
+    *   ]);
+    */
+    public function sendVoice(array $option){
+        $chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendVoice?chat_id=".$chat_id, $option);
+        return new Response(json_decode($jsonResponse, true));
+    }
+
+     /**
+    *   @var Array
+    *   sample
+    *   Yii::$app->telegram->sendSticker([
+    *       'chat_id' => $chat_id,
+    *       'video_note' => InputFile or String
+    *       'thumb' => 	InputFile or String,
+    *       'duration' => Integer,
+    *       'duration' => Integer
+    *       'disable_notification' => Boolean,
+    *       'reply_to_message_id' => Integer,
+    *       'reply_markup' => InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
+    *   ]);
+    */
+    public function sendVideoNote(array $option){
+        $chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendVideoNote?chat_id=".$chat_id, $option);
+        return new Response(json_decode($jsonResponse, true));
+    }
+
+    /**
+    *   @var Array
+    *   sample
     *   Yii::$app->telegram->sendVideo([
     *       'chat_id' => $chat_id,
     *       'video' => 'path/to/test.mp4',//realpath
     *       'duration' => 0,
+    *       'width' => Integer,//Video width
+    *       'height' => Integer, //Video height
     *       'caption' => $caption,
     *       'reply_to_message_id' => $reply_to_message_id,
-    *       'reply_markup' => $reply_markup
+    *       'reply_markup' => $reply_markup,
+    *       'thumb' => InputFile or String,
+    *       'supports_streaming' => Boolean, //Pass True, if the uploaded video is suitable for streaming
+    *       'disable_notification' => Boolean,//Sends the message silently. Users will receive a notification with no sound.
     *   ]);
     */
     public function sendVideo(array $option){
@@ -448,19 +494,29 @@ class Telegram extends TelegramBase
     *   @var Array
     *   sample
     *   Yii::$app->telegram->Animation([
-    *       'file_id' => String, //Required
-    *       'thumb' => PhotoSize, //Optional
-    *       'file_name' => String,  //Optional
-    *       'mime_type' => String, //Optional
+    *       'chat_id' => String, //Required
+    *       'animation' => InputFile or String, //Optional
+    *       'duration' => Integer,  //Optional
+    *       'width' => Integer, //Optional,
+    *       'height' => Integer,
+    *       'thumb' => 	InputFile or String,
+    *       'caption' => String,
+    *       'parse_mode' => String,
+    *       'disable_notification' => Boolean,
+    *       'reply_to_message_id' => Integer
+    *       'reply_markup' => InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
     *   ]);
     *
     *   You can provide an animation for your game so that it looks stylish
     * 	in chats (check out Lumberjack for an example). This object represents an animation file to
     * 	be displayed in the message containing a game.
     */
-    public function Animation(array $option = [])
+    public function sendAnimation(array $option = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/Animation", $option);
+        $chat_id = $option['chat_id'];
+        unset($option['chat_id']);
+        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendAnimation?chat_id=".$chat_id, $option);
+        
         return new Response(json_decode($jsonResponse, true));
     }
 
@@ -723,5 +779,4 @@ class Telegram extends TelegramBase
         }
         return false;
     }
-    
 }

@@ -17,6 +17,10 @@ class Response extends Type
      * 
      */
     private $_result;
+
+    public $error_code;
+
+    public $description;
     
     public function getResult()
     {

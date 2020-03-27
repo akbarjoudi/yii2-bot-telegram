@@ -13,7 +13,7 @@ class Document extends Type
 
     public $file_unique_id;
 
-    public $thumb;
+    private $_thumb;
 
     public $file_name;
 
@@ -21,4 +21,13 @@ class Document extends Type
 
     public $file_size;
     
+    public function getThumb()
+    {
+        return $this->_thumb;
+    }
+
+    public function setThumb($value)
+    {
+        $this->_thumb = new PhotoSize($value);
+    }
 }

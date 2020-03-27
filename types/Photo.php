@@ -9,8 +9,14 @@ use aki\telegram\base\Type;
  */
 class Photo extends Type
 {
-    public $ok;
+    public $photoSize = [];
 
-    public $result;
+    public function __construct($config)
+    {
+        foreach($config as $attribute)
+        {
+            $this->photoSize[] = new PhotoSize($attribute);
+        }
+    }
 
 }

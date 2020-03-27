@@ -81,7 +81,7 @@ class TelegramBase extends Component
      * @return json
      */
     protected function curl_call($url, $option=array(), $headers=array()){
-        $attachments = ['photo', 'sticker', 'audio', 'document', 'video'];
+        $attachments = ['photo', 'sticker', 'audio', 'document', 'video', 'voice', 'animation', 'video_note', 'thumb'];
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -128,6 +128,15 @@ class TelegramBase extends Component
             return new \CURLFile($realPath);
 
         return '@' . $realPath;
+    }
+
+    public function dumper($input)
+    {
+        ob_start();
+        var_dump($input); 
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
     }
 
 }

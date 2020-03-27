@@ -23,7 +23,17 @@ class Result extends Type
 
    private $_photo;
 
+   private $_document;
+
+   private $_video;
+
    public $caption;
+
+   private $_animation;
+
+   private $_voice;
+
+   private $_video_note;
 
    public $error_code;
 
@@ -59,23 +69,115 @@ class Result extends Type
        $this->_chat = new Chat($value);
     }
 
+    /**
+     * 
+     */
     public function getAudio()
     {
        return $this->_audio;
     }
 
+    /**
+     * 
+     */
     public function setAudio($value)
     {
        $this->_audio = new Audio($value);
     }
 
+    /**
+     * 
+     */
     public function getPhoto()
     {
        return $this->_photo;
     }
 
+    /**
+     * 
+     */
     public function setPhoto($value)
     {
        $this->_photo = new Photo($value);
+    }
+
+    /**
+     * 
+     */
+    public function getDocument()
+    {
+       return $this->_document;
+    }
+
+    /**
+     * 
+     */
+    public function setDocument($value)
+    {
+       $this->_document = new \aki\telegram\types\Document($value);
+    }
+
+    /**
+     * 
+     */
+    public function getVideo()
+    {
+       return $this->_video;
+    }
+
+    /**
+     * 
+     */
+    public function setVideo($value)
+    {
+       $this->_video = new Video($value);
+    }
+
+    /**
+     * 
+     */
+    public function getAnimation()
+    {
+       return $this->_animation;
+    }
+
+    /**
+     * 
+     */
+    public function setAnimation($value)
+    {
+       $this->_animation = new Animation($value);
+    }
+
+    /**
+     * 
+     */
+    public function getVoice()
+    {
+       return $this->_voice;
+    }
+
+    /**
+     * 
+     */
+    public function setVoice($value)
+    {
+         $this->_voice = new Voice($value);
+    }
+
+    /**
+     * 
+     */
+    public function getVideoNote()
+    {
+         return $this->_video_note;
+    }
+
+    /**
+     * 
+     */
+    public function setVideoNote($value)
+    {
+         $this->_video_note = new VideoNote($value);
     }
 }
