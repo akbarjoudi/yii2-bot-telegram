@@ -29,6 +29,13 @@ class Response extends Type
 
     public function setResult($value)
     {
-        $this->_result = new Result($value);
+        //for was set webhook
+        if(is_bool($value))
+        {
+            $this->_result = $value;
+        }
+        else {
+            $this->_result = new Result($value);
+        }
     }
 }
