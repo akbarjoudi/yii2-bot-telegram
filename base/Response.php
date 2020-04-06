@@ -34,6 +34,14 @@ class Response extends Type
         {
             $this->_result = $value;
         }
+        else if(is_array($value))//for method getUpdates()
+        {
+            $result = [];
+            foreach ($value as $val) {
+                $result[] = new Input($val);
+            }
+            $this->_result = $result;
+        }
         else {
             $this->_result = new Result($value);
         }

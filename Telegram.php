@@ -307,7 +307,7 @@ class Telegram extends TelegramBase
     public function getUpdates(array $option = [])
     {
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getUpdates", $option);
-        return (json_decode($jsonResponse, true));
+        return new Response(json_decode($jsonResponse, true));
     }
 
     /**
