@@ -3,6 +3,7 @@ namespace aki\telegram;
 
 use aki\telegram\base\Response;
 use aki\telegram\base\TelegramBase;
+use aki\telegram\types\User;
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  */
@@ -12,7 +13,8 @@ class Telegram extends TelegramBase
     public function getMe()
     {
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getMe");
-        return new Response(json_decode($jsonResponse, true));
+        $array = json_decode($jsonResponse, true)['result'];
+        return new User($array);
     }
     /**
     *   @var Array
@@ -305,7 +307,7 @@ class Telegram extends TelegramBase
     public function getUpdates(array $option = [])
     {
         $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getUpdates", $option);
-        return new Response(json_decode($jsonResponse, true));
+        return (json_decode($jsonResponse, true));
     }
 
     /**
