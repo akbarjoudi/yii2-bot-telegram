@@ -195,7 +195,7 @@ class SiteController extends Controller
             'chat_id' => $chat_id,
             'text' => 'hello world!!' 
         ]);
-       return $this->render('index');
+       
     }
 }
 ```
