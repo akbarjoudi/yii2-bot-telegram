@@ -12,6 +12,8 @@ class Input extends Type
 
     private $_message;
 
+    public $callback_query;
+
     public function init()
     {
         parent::init();
