@@ -1,6 +1,7 @@
 <?php
 namespace aki\telegram\base;
 
+use aki\telegram\types\CallbackQuery;
 use aki\telegram\types\Message;
 
 /**
@@ -12,7 +13,7 @@ class Input extends Type
 
     private $_message;
 
-    public $callback_query;
+    private $_callback_query;
 
     public function init()
     {
@@ -29,5 +30,15 @@ class Input extends Type
     public function setMessage($value)
     {
         $this->_message = new Message($value);
+    }
+
+    public function getCallback_query()
+    {
+        return $this->_callback_query;
+    }
+
+    public function setCallback_query($value)
+    {
+        $this->_callback_query = new CallbackQuery($value);
     }
 }
