@@ -2,12 +2,12 @@
 
 namespace aki\telegram\base;
 
-use yii\base\Component;
+use yii\base\BaseObject;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  */
-class TelegramBase extends Component
+class TelegramBase extends BaseObject
 {
     public $apiUrl = "https://api.telegram.org/bot";
     /**
@@ -17,9 +17,9 @@ class TelegramBase extends Component
     public $botToken;
 
     /**
-     * 
+     * bot username
      */
-    public $botUsername;
+    public $botUsername = "";
 
     /**
      * @var string SOCKS5 proxy format string: <login>:<password>@<host>:<port>
@@ -83,10 +83,13 @@ class TelegramBase extends Component
     protected function curl_call($url, $option=array(), $headers=array()){
         $attachments = ['photo', 'sticker', 'audio', 'document', 'video', 'voice', 'animation', 'video_note', 'thumb'];
 
-        $ch = curl_init($url);
+        $ch = curl_init();
+
+        //  set the url
+        curl_setopt($ch, CURLOPT_URL, $url);
+
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, "PostManGoBot 1.0");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->botUsername." 1.0");
 
         if ($this->proxy !== null) {
             // if a proxy string is specified, add header
