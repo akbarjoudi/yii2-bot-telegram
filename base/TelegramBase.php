@@ -39,14 +39,33 @@ class TelegramBase extends Component
 
 
     /**
+     * @var Input
+     */
+    private $_input;
+
+
+    /**
      * @return \GuzzleHttp\Client
      */
-    protected function GetClient()
+    protected function getClient()
     {
         if (empty($this->_client)) {
             $this->_client = new Client(['base_uri' => $this->apiUrl]);
         }
         return $this->_client;
+    }
+
+    /**
+     * @return \Input
+     */
+    protected function getInput()
+    {
+        if (empty($this->_input)) {
+            $input = file_get_contents("php://input");
+            $array= json_decode($input, true);
+            $this->_input = new Input($array);
+        }
+        return $this->_input;
     }
 
     /**
