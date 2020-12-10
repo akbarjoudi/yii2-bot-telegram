@@ -208,8 +208,7 @@ class SiteController extends Controller
 
 Sample widget class :
 ```php
-$telegram = Yii::$app->telegram;
-$res = $telegram->sendMessage([
+$res = Yii::$app->telegram->sendMessage([
 	'chat_id' => $telegram->input->message->chat->id,
 	'text' => "salam"
 ]);

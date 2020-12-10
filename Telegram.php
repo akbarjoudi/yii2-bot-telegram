@@ -12,12 +12,16 @@ use aki\telegram\types\User;
 class Telegram extends TelegramBase
 {
 
+    /**
+     * getMe information 
+     */
     public function getMe()
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getMe");
-        $array = json_decode($jsonResponse, true)['result'];
-        return new User($array);
+        $body = $this->send("/getMe");
+        $body['result'] = new User($body['result']);
+        return new Response($body);
     }
+
     /**
      *   @var Array
      *   sample
@@ -29,45 +33,10 @@ class Telegram extends TelegramBase
      *       'disable_web_page_preview' => $disable_web_page_preview,
      *   ]);
      */
-    public function sendMessage(array $option)
+    public function sendMessage(array $params)
     {
-        $chat_id = $option['chat_id'];
-        $text = urlencode($option['text']);
-        unset($option['chat_id']);
-        unset($option['text']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendMessage?chat_id=" . $chat_id
-            . '&text=' . $text, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
-        return $response;
-    }
-
-    /**
-     *   @var Array
-     *   sample
-     *   Yii::$app->telegram->forwardMessage([
-     *       'chat_id' => $chat_id,
-     *       'from_chat_id' => $from_chat_id,
-     *       'message_id' => $message_id,
-     *   ]);
-     */
-    public function forwardMessage(array $option)
-    {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/forwardMessage?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendMessage", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -82,18 +51,26 @@ class Telegram extends TelegramBase
      *       'reply_markup' => $reply_markup
      *   ]);
      */
-    public function sendPhoto(array $option)
+    public function sendPhoto(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendPhoto?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendPhoto", $params);
+        $response = new Response($body);
+        return $response;
+    }
+
+     /**
+     *   @var Array
+     *   sample
+     *   Yii::$app->telegram->forwardMessage([
+     *       'chat_id' => $chat_id,
+     *       'from_chat_id' => $from_chat_id,
+     *       'message_id' => $message_id,
+     *   ]);
+     */
+    public function forwardMessage(array $params)
+    {
+        $body = $this->send("/forwardMessage", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -109,21 +86,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => $reply_markup
      *   ]);
      */
-    public function sendAudio(array $option)
+    public function sendAudio(array $params)
     {
-        $chat_id = $option['chat_id'];
-        $caption = $option['caption'];
-        unset($option['chat_id']);
-        unset($option['caption']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendAudio?chat_id=" . $chat_id .
-            '&caption=' . $caption, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendAudio", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -138,21 +104,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => $reply_markup
      *   ]);
      */
-    public function sendDocument(array $option)
+    public function sendDocument(array $params)
     {
-        $chat_id = $option['chat_id'];
-        $caption = $option['caption'];
-        unset($option['chat_id']);
-        unset($option['caption']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendDocument?chat_id=" . $chat_id
-            . '&caption=' . $caption, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendDocument", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -166,18 +121,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => $reply_markup
      *   ]);
      */
-    public function sendSticker(array $option)
+    public function sendSticker(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendSticker?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendSticker", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -195,18 +142,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
      *   ]);
      */
-    public function sendVoice(array $option)
+    public function sendVoice(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendVoice?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendVoice", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -224,18 +163,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
      *   ]);
      */
-    public function sendVideoNote(array $option)
+    public function sendVideoNote(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendVideoNote?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendVideoNote", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -256,22 +187,10 @@ class Telegram extends TelegramBase
      *       'disable_notification' => Boolean,//Sends the message silently. Users will receive a notification with no sound.
      *   ]);
      */
-    public function sendVideo(array $option)
+    public function sendVideo(array $params)
     {
-        $chat_id = $option['chat_id'];
-        $caption = $option['caption'];
-        unset($option['chat_id']);
-        unset($option['caption']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken .
-            "/sendVideo?chat_id=" . $chat_id
-            . '&caption=' . $caption, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendVideo", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -287,18 +206,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => $reply_markup
      *   ]);
      */
-    public function sendLocation(array $option)
+    public function sendLocation(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendLocation?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendLocation", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -314,18 +225,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => InlineKeyboardMarkup
      *   ]);
      */
-    public function editMessageLiveLocation(array $option)
+    public function editMessageLiveLocation(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/editMessageLiveLocation?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/editMessageLiveLocation", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -339,18 +242,10 @@ class Telegram extends TelegramBase
      *       'reply_markup' => InlineKeyboardMarkup
      *   ]);
      */
-    public function stopMessageLiveLocation(array $option)
+    public function stopMessageLiveLocation(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/stopMessageLiveLocation?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/stopMessageLiveLocation", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -364,18 +259,10 @@ class Telegram extends TelegramBase
      *   ]);
      *
      */
-    public function sendChatAction(array $option)
+    public function sendChatAction(array $params)
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendChatAction?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendChatAction", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -389,18 +276,10 @@ class Telegram extends TelegramBase
      *   ]);
      *
      */
-    public function getUserProfilePhotos($option)
+    public function getUserProfilePhotos($params)
     {
-        $user_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getUserProfilePhotos?user_id=" . $user_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/getUserProfilePhotos", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -418,17 +297,10 @@ class Telegram extends TelegramBase
      *   ]);
      *
      */
-    public function getUpdates(array $option = [])
+    public function getUpdates(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getUpdates", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
-        return $response;
+        $body = $this->send("/getUpdates", $params);
+        return $body;
     }
 
     /**
@@ -439,11 +311,10 @@ class Telegram extends TelegramBase
      *   ]);
      *
      */
-    public function setWebhook(array $option = [])
+    public function setWebhook(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/setWebhook", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        return $response;
+        $body = $this->send("/setWebhook", $params);
+        return $body;
     }
 
     /**
@@ -452,11 +323,10 @@ class Telegram extends TelegramBase
      *   Yii::$app->telegram->deleteWebhook();
      *
      */
-    public function deleteWebhook(array $option = [])
+    public function deleteWebhook(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/deleteWebhook", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        return $response;
+        $body = $this->send("/deleteWebhook", $params);
+        return $body;
     }
 
     /**
@@ -467,16 +337,10 @@ class Telegram extends TelegramBase
      *   ]);
      *
      */
-    public function getChat(array $option = [])
+    public function getChat(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getChat", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/getChat", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -488,16 +352,10 @@ class Telegram extends TelegramBase
      *   ]);
      *   Use this method to get a list of administrators in a chat.
      */
-    public function getChatAdministrators(array $option = [])
+    public function getChatAdministrators(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getChatAdministrators", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/getChatAdministrators", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -509,16 +367,10 @@ class Telegram extends TelegramBase
      *   ]);
      *   Use this method to get the number of members in a chat. Returns Int on success.
      */
-    public function getChatMembersCount(array $option = [])
+    public function getChatMembersCount(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getChatMembersCount", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/getChatMembersCount", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -532,16 +384,10 @@ class Telegram extends TelegramBase
      *   ]);
      *   Use this method to get information about a member of a chat.
      */
-    public function getChatMember(array $option = [])
+    public function getChatMember(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getChatMember", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/getChatMember", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -559,16 +405,10 @@ class Telegram extends TelegramBase
      *   The answer will be displayed to the user as a notification at the top of the chat screen or as an alert.
      *  On success, True is returned.
      */
-    public function answerCallbackQuery(array $option = [])
+    public function answerCallbackQuery(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/answerCallbackQuery", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/answerCallbackQuery", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -587,16 +427,10 @@ class Telegram extends TelegramBase
      *   Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). On success,
      *  if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
      */
-    public function editMessageText(array $option = [])
+    public function editMessageText(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/editMessageText", $option);
-        $response = new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/editMessageText", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -614,16 +448,10 @@ class Telegram extends TelegramBase
      *   Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). On success,
      *    if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
      */
-    public function editMessageCaption(array $option = [])
+    public function editMessageCaption(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/editMessageCaption", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/editMessageCaption", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -640,16 +468,10 @@ class Telegram extends TelegramBase
      *
      *   Use this method to send a game. On success, the sent Message is returned.
      */
-    public function sendGame(array $option = [])
+    public function sendGame(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendGame", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendGame", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -667,16 +489,10 @@ class Telegram extends TelegramBase
      *
      *   Use this method to send a game. On success, the sent Message is returned.
      */
-    public function Game(array $option = [])
+    public function Game(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/Game", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/Game", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -701,19 +517,10 @@ class Telegram extends TelegramBase
      * 	in chats (check out Lumberjack for an example). This object represents an animation file to
      * 	be displayed in the message containing a game.
      */
-    public function sendAnimation(array $option = [])
+    public function sendAnimation(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/sendAnimation?chat_id=" . $chat_id, $option);
-
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/sendAnimation", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -734,16 +541,10 @@ class Telegram extends TelegramBase
      *	if the message was sent by the bot, returns the edited Message, otherwise returns True.
      *	Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
      */
-    public function CallbackGame(array $option = [])
+    public function CallbackGame(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/CallbackGame", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/CallbackGame", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -761,16 +562,10 @@ class Telegram extends TelegramBase
      *	Will return the score of the specified user and several of his neighbors in a game.
      *	On success, returns an Array of GameHighScore objects.
      */
-    public function getGameHighScores(array $option = [])
+    public function getGameHighScores(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getGameHighScores", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/getGameHighScores", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -785,16 +580,10 @@ class Telegram extends TelegramBase
      *
      *   This object represents one row of the high scores table for a game.
      */
-    public function GameHighScore(array $option = [])
+    public function GameHighScore(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/GameHighScore", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/GameHighScore", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -811,16 +600,10 @@ class Telegram extends TelegramBase
      *
      *   This object represents one row of the high scores table for a game.
      */
-    public function answerInlineQuery(array $option = [])
+    public function answerInlineQuery(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/answerInlineQuery", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/answerInlineQuery", $params);
+        $response = new Response($body);
         return $response;
     }
     /**
@@ -836,16 +619,10 @@ class Telegram extends TelegramBase
      *
      *   This object represents one row of the high scores table for a game.
      */
-    public function inlineQuery(array $option = [])
+    public function inlineQuery(array $params = [])
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/inlineQuery", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/inlineQuery", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -863,18 +640,10 @@ class Telegram extends TelegramBase
      *
      *   This object represents one row of the high scores table for a game.
      */
-    public function kickChatMember(array $option = [])
+    public function kickChatMember(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/kickChatMember?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/kickChatMember", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -888,18 +657,10 @@ class Telegram extends TelegramBase
      *   ]);
      *
      */
-    public function unbanChatMember(array $option = [])
+    public function unbanChatMember(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/unbanChatMember?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/unbanChatMember", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -919,184 +680,88 @@ class Telegram extends TelegramBase
      *
      *   Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for *    this to work and must have the appropriate admin rights. Pass True for all boolean parameters to lift *        restrictions from a user. Returns True on success.
      */
-    public function restrictChatMember(array $option = [])
+    public function restrictChatMember(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/restrictChatMember?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/restrictChatMember", $params);
+        $response = new Response($body);
         return $response;
     }
 
 
-    public function promoteChatMember(array $option = [])
+    public function promoteChatMember(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/promoteChatMember?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/promoteChatMember", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function exportChatInviteLink(array $option = [])
+    public function exportChatInviteLink(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/exportChatInviteLink?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/exportChatInviteLink", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function deleteMessage(array $option = [])
+    public function deleteMessage(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/deleteMessage?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/deleteMessage", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function deleteChatPhoto(array $option = [])
+    public function deleteChatPhoto(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/deleteChatPhoto?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/deleteChatPhoto", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function setChatTitle(array $option = [])
+    public function setChatTitle(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/setChatTitle?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/setChatTitle", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function setChatDescription(array $option = [])
+    public function setChatDescription(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/setChatDescription?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/setChatDescription", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function unpinChatMessage(array $option = [])
+    public function unpinChatMessage(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/unpinChatMessage?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/unpinChatMessage", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function pinChatMessage(array $option = [])
+    public function pinChatMessage(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/pinChatMessage?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/pinChatMessage", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function leaveChat(array $option = [])
+    public function leaveChat(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/leaveChat?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/leaveChat", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function setChatStickerSet(array $option = [])
+    public function setChatStickerSet(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/setChatStickerSet?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/setChatStickerSet", $params);
+        $response = new Response($body);
         return $response;
     }
 
-    public function deleteChatStickerSet(array $option = [])
+    public function deleteChatStickerSet(array $params = [])
     {
-        $chat_id = $option['chat_id'];
-        unset($option['chat_id']);
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/deleteChatStickerSet?chat_id=" . $chat_id, $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
+        $body = $this->send("/deleteChatStickerSet", $params);
+        $response = new Response($body);
         return $response;
     }
 
@@ -1106,17 +771,10 @@ class Telegram extends TelegramBase
      *	]);
      *
      */
-    public function getFile($option)
+    public function getFile($params)
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getFile", $option);
-        $response =  new Response(json_decode($jsonResponse, true));
-        if (!$response->ok) {
-            $this->sendMessage([
-                "chat_id" => $this->input->message->chat->id,
-                "text" => $response->description
-            ]);
-        }
-        return $response;
+        $body = $this->send("/getFile", $params);
+        return $body;
     }
 
     /**
@@ -1126,13 +784,14 @@ class Telegram extends TelegramBase
      *
      * Return file url by file_id
      */
-    public function getFileUrl($option)
+    public function getFileUrl($params)
     {
-        $jsonResponse = $this->curl_call($this->apiUrl . $this->botToken . "/getFile", $option);
-        $result = new Response(json_decode($jsonResponse, true));
+        $body = $this->send("/deleteChatStickerSet", $params);
+        $result = new Response($body);
         if ($result->ok && isset($result->result) && isset($result->result->file_path)) {
             return "https://api.telegram.org/file/bot" . $this->botToken . "/" . $result->result->file_path;
         }
         return false;
     }
+
 }

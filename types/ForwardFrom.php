@@ -5,14 +5,12 @@ namespace aki\telegram\types;
 use aki\telegram\base\Type;
 
 /**
- * 
+ * @author Akbar Joudi <akbar.joody@gmail.com>
  */
-class From extends Type
+class ForwardFrom extends Type
 {
     public $id;
 
-    public $update_id;
-    
     public $is_bot;
 
     public $first_name;

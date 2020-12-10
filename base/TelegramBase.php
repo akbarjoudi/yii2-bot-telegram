@@ -2,6 +2,7 @@
 
 namespace aki\telegram\base;
 
+use GuzzleHttp\Client;
 use yii\base\Component;
 
 /**
@@ -9,7 +10,12 @@ use yii\base\Component;
  */
 class TelegramBase extends Component
 {
-    public $apiUrl = "https://api.telegram.org/bot";
+
+    /**
+     * @var string boturl
+     */
+    public $apiUrl = "https://api.telegram.org";
+
     /**
      * Token taken from botFather
      * @var string
@@ -19,7 +25,7 @@ class TelegramBase extends Component
     /**
      * bot username
      */
-    public $botUsername = "";
+    public $botUsername = "PostManBot";
 
     /**
      * @var string SOCKS5 proxy format string: <login>:<password>@<host>:<port>
@@ -27,119 +33,68 @@ class TelegramBase extends Component
     public $proxy;
 
     /**
-     * Data sent to us from the telegram server
-     * @var aki\components\input
+     * @var \GuzzleHttp\Client
      */
-    private $_input;
+    private $_client;
+
 
     /**
-     * 
+     * @return \GuzzleHttp\Client
      */
-    public function __construct($config = [])
+    protected function GetClient()
     {
-        
-        parent::__construct($config);
-
-        $input = file_get_contents("php://input");
-        $array= json_decode($input, true);
-        $this->input = new Input($array);
-
+        if (empty($this->_client)) {
+            $this->_client = new Client(['base_uri' => $this->apiUrl]);
+        }
+        return $this->_client;
     }
 
-    
     /**
-     * 
+     * initializeParams
+     * @param Array $params
      */
-    public function getInput()
+    public function initializeParams($params)
     {
-        return $this->_input;
-    }
+        $is_resource = false;
+        $multipart    = [];
 
-    /**
-     * 
-     */
-    public function setInput($res)
-    {
-        $this->_input = $res;
-    }
-
-    public function hook()
-    {
-        $json = file_get_contents('php://input');
-        return json_decode($json);
-    }
-
-    /**
-     * array_push_assoc
-     */
-    protected function array_push_assoc(&$array, $key, $value){
-       $array[$key] = $value;
-    }
-
-    /**
-     *  call url
-     * @return json
-     */
-    protected function curl_call($url, $option=array(), $headers=array()){
-        $attachments = ['photo', 'sticker', 'audio', 'document', 'video', 'voice', 'animation', 'video_note', 'thumb'];
-
-        $ch = curl_init();
-
-        //  set the url
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->botUsername." 1.0");
-
-        if ($this->proxy !== null) {
-            // if a proxy string is specified, add header
-            curl_setopt($ch, CURLOPT_PROXY, "socks5://{$this->proxy}");
+        if (empty($params)) {
+            return [];
         }
 
-        if (count($option)) {
-            curl_setopt($ch, CURLOPT_POST, true);
-
-            foreach($attachments as $attachment){
-                if(isset($option[$attachment])){
-                    $option[$attachment] = $this->curlFile($option[$attachment]);
-                    break;
+        //Reformat data array in multipart way if it contains a resource
+        $attachments = ['photo', 'sticker', 'audio', 'document', 'video', 'voice', 'animation', 'video_note', 'thumb'];
+        foreach ($params as $key => $item) {
+           
+            if (in_array($key, $attachments)) {
+                if (file_exists($item)) {
+                    $file = fopen($item, 'r');
+                    $is_resource |= is_resource($file);
+                    $multipart[] = ['name' => $key, 'contents' => $file];
                 }
             }
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $option);
+            else{
+                $multipart[] = ['name' => $key, 'contents' => $item];
+            }
         }
-        $r = curl_exec($ch);
-        if($r == false){
-            $text = 'eroror '.curl_error($ch);
-            $myfile = fopen("error_telegram.log", "w") or die("Unable to open file!");
-            fwrite($myfile, $text);
-            fclose($myfile);
+        if ($is_resource) {
+            return ['multipart' => $multipart];
         }
-        curl_close($ch);
-        return $r;
+
+        return ['form_params' => $params];
     }
 
     /**
-     * @return string
+     * send request
+     * @param String $method
+     * @param Array $params
+     * @return string 
      */
-    protected function curlFile($path){
-        if (is_array($path))
-            return $path['file_id'];
-
-        $realPath = realpath($path);
-
-        if (class_exists('CURLFile'))
-            return new \CURLFile($realPath);
-
-        return '@' . $realPath;
-    }
-
-    public function dumper($input)
+    public function send($method, $params = null)
     {
-        ob_start();
-        var_dump($input); 
-        $output = ob_get_contents();
-        ob_end_clean();
-        return $output;
+        $request_params = $this->initializeParams($params);
+        $response = $this->client->post("/bot" . $this->botToken . $method, $request_params);
+        $body = json_decode($response->getBody(), true);
+        return $body;
     }
-
 }

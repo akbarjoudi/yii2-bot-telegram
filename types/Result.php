@@ -37,6 +37,14 @@ class Result extends Type
 
    public $error_code;
 
+   private $_forward_from;
+
+   public $forward_date;
+
+   private $_entities;
+
+   private $_sticker;
+
    /**
     * 
     */
@@ -179,5 +187,55 @@ class Result extends Type
     public function setVideoNote($value)
     {
          $this->_video_note = new VideoNote($value);
+    }
+
+    /**
+     * 
+     */
+    public function getForward_from()
+    {
+         return $this->_forward_from;
+    }
+
+    /**
+     * 
+     */
+    public function setForward_from($value)
+    {
+         $this->_forward_from = new ForwardFrom($value);
+    }
+
+
+    /**
+     * 
+     */
+    public function getEntities()
+    {
+         return $this->_entities;
+    }
+
+    /**
+     * 
+     */
+    public function setEntities($value)
+    {
+         $this->_entities = new Entities($value);
+    }
+
+
+    /**
+     * 
+     */
+    public function getSticker()
+    {
+         return $this->_sticker;
+    }
+
+    /**
+     * 
+     */
+    public function setSticker($value)
+    {
+         $this->_sticker = new Sticker($value);
     }
 }

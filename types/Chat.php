@@ -1,4 +1,5 @@
 <?php
+
 namespace aki\telegram\types;
 
 
@@ -19,6 +20,8 @@ class Chat extends Type
      */
     public $id;
 
+    public $update_id;
+
     /**
      * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
      * @var String
@@ -30,7 +33,7 @@ class Chat extends Type
      * @var String
      */
     public $title;
-    
+
     /**
      * Optional. Username, for private chats, supergroups and channels if available
      * @var String
@@ -54,7 +57,7 @@ class Chat extends Type
      * @var aki\telegram\types\ChatPhoto
      */
     public $photo;
-    
+
     /**
      * Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
      * @var String
@@ -101,5 +104,4 @@ class Chat extends Type
      * @var Boolean
      */
     public $can_set_sticker_set;
-    
 }

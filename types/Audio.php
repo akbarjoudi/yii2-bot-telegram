@@ -11,6 +11,8 @@ class Audio extends Type
 {
     public $file_id;
     
+    public $file_name;
+    
     public $file_unique_id;
 
     public $duration;
