@@ -45,6 +45,8 @@ class Result extends Type
 
    private $_sticker;
 
+   private $_reply_markup;
+
    /**
     * 
     */
@@ -237,5 +239,21 @@ class Result extends Type
     public function setSticker($value)
     {
          $this->_sticker = new Sticker($value);
+    }
+
+    /**
+     * 
+     */
+    public function getReply_markup()
+    {
+         return $this->_reply_markup;
+    }
+
+    /**
+     * 
+     */
+    public function setReply_markup($value)
+    {
+         $this->_reply_markup = new InlineKeyboardMarkup($value);
     }
 }

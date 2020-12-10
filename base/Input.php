@@ -11,6 +11,7 @@ use aki\telegram\types\Message;
  */
 class Input extends Type
 {
+
     public $update_id;
 
     private $_message;
