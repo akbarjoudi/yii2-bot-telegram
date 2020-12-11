@@ -216,3 +216,20 @@ $res = Yii::$app->telegram->sendMessage([
 	'text' => "salam"
 ]);
 ```
+
+New feature Command
+-----
+
+How to use the command
+
+```php
+use aki\telegram\base\Command;
+
+Command::run("/start", function($telegram){
+   $result = $telegram->sendMessage([
+      'chat_id' => $telegram->input->message->chat->id,
+      "text" => "hello"
+   ]);
+});
+```
+
