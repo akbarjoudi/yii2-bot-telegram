@@ -11,6 +11,7 @@ Yii2 bot telegram
 [![Latest Unstable Version](https://poser.pugx.org/aki/yii2-bot-telegram/v/unstable)](https://packagist.org/packages/aki/yii2-bot-telegram)
 [![License](https://poser.pugx.org/aki/yii2-bot-telegram/license)](https://packagist.org/packages/aki/yii2-bot-telegram)
 [![Monthly Downloads](https://poser.pugx.org/aki/yii2-bot-telegram/d/monthly)](https://packagist.org/packages/aki/yii2-bot-telegram)
+[![Daily Downloads](https://poser.pugx.org/aki/yii2-bot-telegram/d/daily)](//packagist.org/packages/aki/yii2-bot-telegram)
 </p>
 
 Create your first bot
