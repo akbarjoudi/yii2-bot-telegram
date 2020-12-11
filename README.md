@@ -6,7 +6,7 @@ Yii2 bot telegram
 </p>
 <p align="center">
 	
-[![Latest Stable Version](https://poser.pugx.org/aki/yii2-bot-telegram/v/stable)](https://packagist.org/packages/aki/yii2-bot-telegram)
+[![Latest Stable Version](https://poser.pugx.org/aki/yii2-bot-telegram/v)](//packagist.org/packages/aki/yii2-bot-telegram)
 [![Total Downloads](https://poser.pugx.org/aki/yii2-bot-telegram/downloads)](https://packagist.org/packages/aki/yii2-bot-telegram)
 [![Latest Unstable Version](https://poser.pugx.org/aki/yii2-bot-telegram/v/unstable)](https://packagist.org/packages/aki/yii2-bot-telegram)
 [![License](https://poser.pugx.org/aki/yii2-bot-telegram/license)](https://packagist.org/packages/aki/yii2-bot-telegram)
