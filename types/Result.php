@@ -15,6 +15,8 @@ class Result extends Type
 
    private $_chat;
 
+   public $sender_chat;
+
    public $date;
 
    public $text;
