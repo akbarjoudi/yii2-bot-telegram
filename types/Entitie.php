@@ -15,4 +15,6 @@ class Entitie extends Type
     public $length;
 
     public $type;
+
+    public $url;
 }
