@@ -104,4 +104,9 @@ class Chat extends Type
      * @var Boolean
      */
     public $can_set_sticker_set;
+
+    /**
+     * deprecated
+     */
+    public $all_members_are_administrators;
 }
