@@ -786,7 +786,7 @@ class Telegram extends TelegramBase
      */
     public function getFileUrl($params)
     {
-        $body = $this->send("/deleteChatStickerSet", $params);
+        $body = $this->send("/getFile", $params);
         $result = new Response($body);
         if ($result->ok && isset($result->result) && isset($result->result->file_path)) {
             return "https://api.telegram.org/file/bot" . $this->botToken . "/" . $result->result->file_path;
