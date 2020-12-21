@@ -786,10 +786,9 @@ class Telegram extends TelegramBase
      */
     public function getFileUrl($params)
     {
-        $body = $this->send("/getFile", $params);
-        $result = new Response($body);
-        if ($result->ok && isset($result->result) && isset($result->result->file_path)) {
-            return "https://api.telegram.org/file/bot" . $this->botToken . "/" . $result->result->file_path;
+        $body = json_decode(json_encode($this->send("/getFile", $params)), false);
+        if ($body->ok && isset($body->result) && isset($body->result->file_path)) {
+            return "https://api.telegram.org/file/bot" . $this->botToken . "/" . $body->result->file_path;
         }
         return false;
     }
