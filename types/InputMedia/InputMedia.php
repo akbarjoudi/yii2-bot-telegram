@@ -1,6 +1,5 @@
 <?php
-namespace aki\telegram\types;
-
+namespace aki\telegram\types\InputMedia;
 
 use aki\telegram\base\Type;
 
@@ -13,7 +12,6 @@ use aki\telegram\base\Type;
  * InputMediaPhoto
  * InputMediaVideo
  */
-class InputMedia extends Type
-{
-    
+class InputMedia extends Type{
+
 }

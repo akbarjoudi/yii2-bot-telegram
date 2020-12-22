@@ -2,7 +2,9 @@
 
 namespace aki\telegram\base;
 
+use aki\telegram\types\InputMedia\InputMedia;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Stream;
 use yii\base\Component;
 
 /**
@@ -62,7 +64,7 @@ class TelegramBase extends Component
     {
         if (empty($this->_input)) {
             $input = file_get_contents("php://input");
-            $array= json_decode($input, true);
+            $array = json_decode($input, true);
             $this->_input = new Input($array);
         }
         return $this->_input;
@@ -84,19 +86,22 @@ class TelegramBase extends Component
         //Reformat data array in multipart way if it contains a resource
         $attachments = ['photo', 'sticker', 'audio', 'document', 'video', 'voice', 'animation', 'video_note', 'thumb'];
         foreach ($params as $key => $item) {
-           
-            if (in_array($key, $attachments)) {
+            if ($key === 'media') {
+                // Magical media input helper.
+                $item = $this->mediaInputHelper($item, $is_resource, $multipart);
+            } else if (in_array($key, $attachments)) {
                 if (file_exists($item)) {
                     $file = fopen($item, 'r');
                     $is_resource |= is_resource($file);
                     $multipart[] = ['name' => $key, 'contents' => $file];
                 }
             }
-            else{
-                $multipart[] = ['name' => $key, 'contents' => $item];
-            }
+
+
+            $multipart[]  = ['name' => $key, 'contents' => $item];
         }
         if ($is_resource) {
+
             return ['multipart' => $multipart];
         }
 
@@ -115,5 +120,39 @@ class TelegramBase extends Component
         $response = $this->client->post("/bot" . $this->botToken . $method, $request_params);
         $body = json_decode($response->getBody(), true);
         return $body;
+    }
+
+
+    /**
+     * 
+     */
+    public function mediaInputHelper($item, bool &$is_resource, &$multipart)
+    {
+        $was_array = is_array($item);
+        $was_array || $item = [$item];
+
+        $possible_medias = [];
+        /** @var InputMedia|null $media_item */
+        foreach ($item as $media_item) {
+            if (!($media_item instanceof InputMedia)) {
+                continue;
+            }
+            $possible_medias = array_filter([
+                'media' => $media_item->media,
+            ]);
+
+            foreach ($possible_medias as $type => $media) {
+
+                // Allow absolute paths to local files.
+                $media = new Stream(fopen($media, 'rb'));
+
+                if (is_resource($media) || $media instanceof Stream) {
+                    $is_resource = true;
+                    $unique_key   = uniqid($type . '_', false);
+                    $multipart[]  = ['name' => $unique_key, 'contents' => $media];
+                }
+            }
+        }
+        return json_encode($item);
     }
 }
