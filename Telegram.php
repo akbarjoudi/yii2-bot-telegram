@@ -793,4 +793,11 @@ class Telegram extends TelegramBase
         return false;
     }
 
+    public function sendMediaGroup($params)
+    {
+        $body = $this->send("/sendMediaGroup", $params);
+        // $response = new Response($body);
+        return $body;
+    }
+
 }
