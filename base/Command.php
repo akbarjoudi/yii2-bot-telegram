@@ -19,8 +19,10 @@ class Command extends Component{
     public static function run($command, callable $fun){
         $telegram = Yii::$app->telegram;
         $text = $telegram->input->message->text;
-        if($text == $command){
-            return call_user_func_array($fun, [$telegram]);
+        $args = explode(' ', $text);
+        $inputCommand = array_shift($args);
+        if($inputCommand === $command){
+            return call_user_func_array($fun, [$telegram, $args]);
         }
     }
 }
