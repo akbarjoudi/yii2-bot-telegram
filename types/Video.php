@@ -13,6 +13,8 @@ class Video extends Type
 
     public $file_unique_id;
 
+    public $file_name;
+
     public $width;
 
     public $height;
