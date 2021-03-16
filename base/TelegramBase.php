@@ -60,13 +60,26 @@ class TelegramBase extends Component
     /**
      * @return \Input
      */
-    protected function getInput()
+    /**
+     * @return Input
+     */F
+    protected function getInput(): ?Input
     {
         if (empty($this->_input)) {
-            $input = file_get_contents("php://input");
-            $array = json_decode($input, true);
-            $this->_input = new Input($array);
+            $input = file_get_contents('php://input');
+            if (!$input) {
+                $this->_input = null;
+            } else {
+                try {
+                    $array = json_decode($input, true, 512, JSON_THROW_ON_ERROR);
+                    $this->_input = new Input($array);
+                }
+                catch (\Exception $ex) {
+                    return null;
+                }
+            }
         }
+
         return $this->_input;
     }
 

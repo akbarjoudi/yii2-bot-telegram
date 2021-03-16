@@ -16,6 +16,8 @@ class Input extends Type
 
     private $_message;
 
+    private $_edited_message;
+
     private $_callback_query;
 
     private $_from;
@@ -37,6 +39,16 @@ class Input extends Type
     public function setMessage($value)
     {
         $this->_message = new Message($value);
+    }
+    
+    public function getEdited_message()
+    {
+	    return $this->_edited_message;
+    }
+
+    public function setEdited_message($value): void
+    {
+	    $this->_edited_message = $value;
     }
 
     public function getCallback_query()
