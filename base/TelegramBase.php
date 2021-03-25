@@ -62,7 +62,7 @@ class TelegramBase extends Component
      */
     /**
      * @return Input
-     */F
+     */
     protected function getInput(): ?Input
     {
         if (empty($this->_input)) {
