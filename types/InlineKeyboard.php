@@ -13,5 +13,7 @@ class InlineKeyboard extends Type
     public $text;
     
     public $callback_data;
+
+    public $url;
     
 }
