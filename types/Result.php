@@ -48,6 +48,8 @@ class Result extends Type
    private $_sticker;
 
    private $_reply_markup;
+   
+   public $caption_entities;
 
    /**
     * 
