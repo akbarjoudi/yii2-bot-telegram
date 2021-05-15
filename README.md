@@ -167,10 +167,9 @@ send message width inline keyboard by:
 send photo by :
 ```php
 <?php 
-$webroot = Yii::getAlias("@webroot");// /home/usr/public_html/web
 Yii::$app->telegram->sendPhoto([
 	'chat_id' => $chat_id,
-	'photo' => $webroot.'/uploads/test.jpg',
+	'photo' => Yii::$app->getBaseUrl().'/uploads/test.jpg',
 	'caption' => 'this is test'
 ]); ?>
 ```
