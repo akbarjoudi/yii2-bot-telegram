@@ -18,8 +18,12 @@ class Telegram extends TelegramBase
     public function getMe()
     {
         $body = $this->send("/getMe");
-        $body['result'] = new User($body['result']);
-        return new Response($body);
+        return new Response([
+            'ok' => $body['ok'],
+            'result' => [
+                'user' => $body['result']
+            ]
+        ]);
     }
 
     /**
