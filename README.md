@@ -161,7 +161,7 @@ send message width inline keyboard by:
                 ]
             ]
         ]),
-    ] ?>
+    ]); ?>
 ```
 
 send photo by :
