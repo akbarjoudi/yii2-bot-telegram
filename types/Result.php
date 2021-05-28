@@ -9,24 +9,6 @@ use aki\telegram\base\Type;
  */
 class Result extends Type
 {
-   // public $id;
-
-   // public $is_bot;
-
-   // public $first_name;
-
-   // public $last_name;
-
-   // public $username;
-
-   // public $language_code;
-
-   // public $can_join_groups;
-
-   // public $can_read_all_group_messages;
-
-   // public $supports_inline_queries;
-
    public $message_id;
 
    private $_from;
@@ -70,6 +52,8 @@ class Result extends Type
    public $caption_entities;
 
    private $_user;
+   
+   public $author_signature;
    
    /**
     * 
