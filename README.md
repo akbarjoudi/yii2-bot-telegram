@@ -14,6 +14,8 @@ Yii2 bot telegram
 [![Daily Downloads](https://poser.pugx.org/aki/yii2-bot-telegram/d/daily)](//packagist.org/packages/aki/yii2-bot-telegram)
 </p>
 
+[guide-ru](https://github.com/akbarjoudi/yii2-bot-telegram/tree/master/docs/guide-ru)
+
 Create your first bot
 ------------
 1. Message @botfather https://telegram.me/botfather with the following text: ```/newbot``` If you don't know how to message by username, click the search field on your Telegram app and type ```@botfather```, where you should be able to initiate a conversation. Be careful not to send it to the wrong contact, because some users has similar usernames to ```botfather```.
