@@ -55,6 +55,8 @@ class Result extends Type
    
    public $author_signature;
    
+   public $edit_date;
+   
    /**
     * 
     */
