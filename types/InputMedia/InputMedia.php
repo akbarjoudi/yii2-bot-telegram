@@ -13,5 +13,5 @@ use aki\telegram\base\Type;
  * InputMediaVideo
  */
 class InputMedia extends Type{
-
+    public $media;
 }

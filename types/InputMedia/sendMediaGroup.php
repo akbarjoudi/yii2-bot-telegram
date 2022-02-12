@@ -1,7 +1,6 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
-namespace aki\telegram\types\inputMedia;
-
+namespace aki\telegram\types\InputMedia;
 
 use aki\telegram\base\Type;
 
@@ -14,7 +13,7 @@ class sendMediaGroup extends Type
     public $chat_id;
 
     /**
-     * @var Array of InputMediaAudio, InputMediaDocument, InputMediaPhoto and InputMediaVideo
+     * @var array of InputMediaAudio, InputMediaDocument, InputMediaPhoto and InputMediaVideo
      */
     public $media;
     

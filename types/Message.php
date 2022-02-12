@@ -1,12 +1,18 @@
-<?php
-namespace aki\telegram\types;
+<?php /** @noinspection PhpUnused */
 
+namespace aki\telegram\types;
 
 use aki\telegram\base\Type;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  * This object represents a message.
+ *
+ * TODO: implement classes:
+ *  Game
+ *  Invoice
+ *  InvoiceSuccessfulPayment
+ *  PassportData
  */
 class Message extends Type
 {
@@ -18,13 +24,13 @@ class Message extends Type
 
     /**
      * Optional. Sender, empty for messages sent to channels
-     * @var aki\telegram\types\User
+     * @var User
      */
     private $_from;
 
     /**
      * 	Conversation the message belongs to
-     * @var aki\telegram\types\Chat
+     * @var Chat
      */
     private $_chat;
 
@@ -36,13 +42,13 @@ class Message extends Type
 
     /**
      * Optional. For forwarded messages, sender of the original message
-     * @var aki\telegram\types\User
+     * @var User
      */
     public $forward_from;
 
     /**
      * 	Optional. For messages forwarded from channels, information about the original channel
-     * @var aki\telegram\types\Chat
+     * @var Chat
      */
     public $forward_from_chat;
 
@@ -73,7 +79,7 @@ class Message extends Type
     /**
      * 	Optional. For replies, the original message.
      *  Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
-     * @var aki\telegram\types\Message
+     * @var Message
      */
     public $reply_to_message;
 
@@ -103,25 +109,25 @@ class Message extends Type
 
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
-     * 	@var Array of aki\telegram\types\MessageEntity
+     * 	@var array of aki\telegram\types\MessageEntity
      */
     public $entities;
     
     /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
-     * @var Array of aki\telegram\types\MessageEntity
+     * @var array of aki\telegram\types\MessageEntity
      */
     public $caption_entities;
 
     /**
      * Optional. Message is an audio file, information about the file
-     * @var aki\telegram\types\Audio
+     * @var Audio
      */
     public $audio;
 
     /**
      * Optional. Message is a general file, information about the file
-     * @var aki\telegram\types\Document
+     * @var Document
      */
     public $document;
 
@@ -129,87 +135,87 @@ class Message extends Type
      * 	Optional. Message is an animation,
      *  information about the animation.
      *  For backward compatibility, when this field is set, the document field will also be set
-     * @var aki\telegram\types\Animation
+     * @var Animation
      */
     public $animation;
 
     /**
      * 	Optional. Message is a game, information about the game.
-     * @var aki\telegram\types\Game
+     * @var Game
      */
     public $game;
 
     /**
      * Optional. Message is a photo, available sizes of the photo
-     * @var Array of aki\telegram\types\PhotoSize
+     * @var array of aki\telegram\types\PhotoSize
      */
     public $photo;
 
     /**
      * Optional. Message is a sticker, information about the sticker
-     * @var aki\telegram\types\Sticker
+     * @var Sticker
      */
     public $sticker;
 
     /**
      * Optional. Message is a video, information about the video
-     * @var aki\telegram\types\Video
+     * @var Video
      */
     public $video;
 
     /**
      * Optional. Message is a voice message, information about the file
-     * @var aki\telegram\types\Voice
+     * @var Voice
      */
     public $voice;
 
     /**
      * 	Optional. Message is a video note, information about the video message
-     * @var aki\telegram\types\VideoNote
+     * @var VideoNote
      */
     public $video_note;
 
     /**
      * 	Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
-     * @var String
+     * @var string
      */
     public $caption;
 
     /**
      * 	Optional. Message is a shared contact, information about the contact
-     * @var aki\telegram\types\Contact
+     * @var Contact
      */
     public $contact;
 
     /**
      * 	Optional. Message is a shared location, information about the location
-     * @var aki\telegram\types\Location
+     * @var Location
      */
     public $location;
 
     /**
      * Optional. Message is a venue, information about the venue
-     * @var aki\telegram\types\Venue
+     * @var Venue
      */
     public $venue;
 
     /**
      * Optional. Message is a native poll, information about the poll
-     * @var aki\telegram\types\Poll
+     * @var Poll
      */
     public $poll;
 
     /**
      * 	Optional. New members that were added to the group or supergroup and information about them
      *  (the bot itself may be one of these members)
-     * @var Array of aki\telegram\types\User
+     * @var array of aki\telegram\types\User
      */
     public $new_chat_members;
 
     /**
      * Optional. A member was removed from the group, 
      * information about them (this member may be the bot itself)
-     * @var aki\telegram\types\User
+     * @var User
      */
     public $left_chat_member;
 
@@ -221,7 +227,7 @@ class Message extends Type
 
     /**
      * Optional. A chat photo was change to this value
-     * @var Array of aki\telegram\types\PhotoSize
+     * @var array of aki\telegram\types\PhotoSize
      */
     public $new_chat_photo;
 
@@ -258,7 +264,7 @@ class Message extends Type
     /**
      * Optional. The group has been migrated to a supergroup with the specified identifier. 
      * This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it.
-     *  But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+     *  But it is smaller than 52 bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
      * @var Integer
      */
     public $migrate_to_chat_id;
@@ -267,7 +273,7 @@ class Message extends Type
     /**
      * Optional. The supergroup has been migrated from a group with the specified identifier.
      *  This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it.
-     *  But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+     *  But it is smaller than 52 bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
      * @var Integer
      */
     public $migrate_from_chat_id;
@@ -275,19 +281,19 @@ class Message extends Type
     /**
      * 	Optional. Specified message was pinned.
      *  Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
-     * @var aki\telegram\types\Message
+     * @var Message
      */
     public $pinned_message;
 
     /**
      * 	Optional. Message is an invoice for a payment, information about the invoice. 
-     * @var aki\telegram\types\Invoice
+     * @var Invoice
      */
     public $invoice;
 
     /**
      * Optional. Message is a service message about a successful payment, information about the payment. 
-     * @var aki\telegram\types\InvoiceSuccessfulPayment
+     * @var InvoiceSuccessfulPayment
      */
     public $successful_payment;
 
@@ -299,27 +305,25 @@ class Message extends Type
 
     /**
      * Optional. Telegram Passport data
-     * @var aki\telegram\types\PassportData
+     * @var PassportData
      */
     public $passport_data;
 
     /**
      * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
-     * @var aki\telegram\types\InlineKeyboardMarkup	
+     * @var InlineKeyboardMarkup
      */
     public $reply_markup;
 
+    public $new_chat_participant;
 
-
-
-
-
+    public $new_chat_member;
 
 
     /**
      * 
      */
-    public function getFrom()
+    public function getFrom(): User
     {
         return $this->_from;
     }
@@ -327,7 +331,7 @@ class Message extends Type
     /**
      * 
      */
-    public function setFrom($value)
+    public function setFrom($value): void
     {
         $this->_from = new From($value);
     }
@@ -335,7 +339,7 @@ class Message extends Type
     /**
      * 
      */
-    public function getChat()
+    public function getChat(): Chat
     {
         return $this->_chat;
     }
@@ -343,7 +347,7 @@ class Message extends Type
     /**
      * 
      */
-    public function setChat($value)
+    public function setChat($value): void
     {
         $this->_chat = new Chat($value);
     }

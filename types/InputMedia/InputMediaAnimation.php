@@ -1,14 +1,12 @@
-<?php
-namespace aki\telegram\types\inputMedia;
+<?php /** @noinspection PhpUnused */
 
-
-use aki\telegram\base\Type;
+namespace aki\telegram\types\InputMedia;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
  */
-class InputMediaAnimation extends Type implements InputMedia
+class InputMediaAnimation extends InputMedia
 {
     public $type;
 
