@@ -4,7 +4,6 @@ namespace aki\telegram;
 
 use aki\telegram\base\Response;
 use aki\telegram\base\TelegramBase;
-use aki\telegram\types\User;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
