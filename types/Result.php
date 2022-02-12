@@ -53,11 +53,13 @@ class Result extends Type
    public $caption_entities;
 
    private $_user;
-   
+
    public $author_signature;
    
    public $edit_date;
-   
+
+    public $forward_sender_name;
+
    /**
     * 
     */
@@ -73,26 +75,6 @@ class Result extends Type
     {
        $this->_user = new User($value);
     }
-
-   public $caption_entities;
-
-   public $_user;
-
-   public $author_signature;
-
-   public $edit_date;
-
-   public $forward_sender_name;
-
-   public $caption_entities;
-
-   public $_user;
-
-   public $author_signature;
-
-   public $edit_date;
-
-   public $forward_sender_name;
 
    /**
     * 
