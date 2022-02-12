@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnused */
+
 namespace aki\telegram\base;
 
 use aki\telegram\types\CallbackQuery;
@@ -6,12 +7,8 @@ use aki\telegram\types\Chat;
 use aki\telegram\types\From;
 use aki\telegram\types\Message;
 
-/**
- * 
- */
 class Input extends Type
 {
-
     public $update_id;
 
     private $_message;
@@ -24,19 +21,14 @@ class Input extends Type
 
     private $_chat;
 
-    public function init()
-    {
-        parent::init();
-
-        // ... initialization after configuration is applied
-    }
+    public $my_chat_member;
 
     public function getMessage()
     {
         return $this->_message;
     }
 
-    public function setMessage($value)
+    public function setMessage($value): void
     {
         $this->_message = new Message($value);
     }
@@ -56,7 +48,7 @@ class Input extends Type
         return $this->_callback_query;
     }
 
-    public function setCallback_query($value)
+    public function setCallback_query($value): void
     {
         $this->_callback_query = new CallbackQuery($value);
     }
@@ -67,7 +59,7 @@ class Input extends Type
         return $this->_from;
     }
 
-    public function setFrom($value)
+    public function setFrom($value): void
     {
         $this->_from = new From($value);
     }
@@ -77,7 +69,7 @@ class Input extends Type
         return $this->_chat;
     }
 
-    public function setChat($value)
+    public function setChat($value): void
     {
         $this->_chat = new Chat($value);
     }

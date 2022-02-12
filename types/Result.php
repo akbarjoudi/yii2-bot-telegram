@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnused */
+
 namespace aki\telegram\types;
 
 use aki\telegram\base\Type;
@@ -49,6 +50,16 @@ class Result extends Type
 
    private $_reply_markup;
 
+   public $caption_entities;
+
+   public $_user;
+
+   public $author_signature;
+
+   public $edit_date;
+
+   public $forward_sender_name;
+
    /**
     * 
     */
@@ -60,7 +71,7 @@ class Result extends Type
    /**
     * 
     */
-   public function setFrom($value)
+   public function setFrom($value): void
    {
       $this->_from = new From($value);
    }
@@ -76,7 +87,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setChat($value)
+    public function setChat($value): void
     {
        $this->_chat = new Chat($value);
     }
@@ -92,7 +103,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setAudio($value)
+    public function setAudio($value): void
     {
        $this->_audio = new Audio($value);
     }
@@ -108,7 +119,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setPhoto($value)
+    public function setPhoto($value): void
     {
        $this->_photo = new Photo($value);
     }
@@ -124,9 +135,9 @@ class Result extends Type
     /**
      * 
      */
-    public function setDocument($value)
+    public function setDocument($value): void
     {
-       $this->_document = new \aki\telegram\types\Document($value);
+       $this->_document = new Document($value);
     }
 
     /**
@@ -140,7 +151,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setVideo($value)
+    public function setVideo($value): void
     {
        $this->_video = new Video($value);
     }
@@ -156,7 +167,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setAnimation($value)
+    public function setAnimation($value): void
     {
        $this->_animation = new Animation($value);
     }
@@ -172,7 +183,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setVoice($value)
+    public function setVoice($value): void
     {
          $this->_voice = new Voice($value);
     }
@@ -188,7 +199,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setVideoNote($value)
+    public function setVideoNote($value): void
     {
          $this->_video_note = new VideoNote($value);
     }
@@ -204,7 +215,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setForward_from($value)
+    public function setForward_from($value): void
     {
          $this->_forward_from = new ForwardFrom($value);
     }
@@ -221,7 +232,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setEntities($value)
+    public function setEntities($value): void
     {
          $this->_entities = new Entities($value);
     }
@@ -238,7 +249,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setSticker($value)
+    public function setSticker($value): void
     {
          $this->_sticker = new Sticker($value);
     }
@@ -254,7 +265,7 @@ class Result extends Type
     /**
      * 
      */
-    public function setReply_markup($value)
+    public function setReply_markup($value): void
     {
          $this->_reply_markup = new InlineKeyboardMarkup($value);
     }

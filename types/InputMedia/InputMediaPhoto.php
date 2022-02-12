@@ -1,7 +1,6 @@
-<?php
-namespace aki\telegram\types\InputMedia;
+<?php /** @noinspection PhpUnused */
 
-use GuzzleHttp\Psr7\Stream;
+namespace aki\telegram\types\InputMedia;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
@@ -13,8 +12,7 @@ class InputMediaPhoto extends InputMedia
 
     public $media;
 
-    public $caption = "";
+    public $caption = '';
 
-    public $parse_mode = "";
-
+    public $parse_mode = '';
 }

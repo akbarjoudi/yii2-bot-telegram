@@ -3,7 +3,9 @@
 namespace aki\telegram\base;
 
 use aki\telegram\types\InputMedia\InputMedia;
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Stream;
 use yii\base\Component;
 
@@ -12,11 +14,10 @@ use yii\base\Component;
  */
 class TelegramBase extends Component
 {
-
     /**
-     * @var string boturl
+     * @var string api Telegram url
      */
-    public $apiUrl = "https://api.telegram.org";
+    public $apiUrl = 'https://api.telegram.org';
 
     /**
      * Token taken from botFather
@@ -27,7 +28,7 @@ class TelegramBase extends Component
     /**
      * bot username
      */
-    public $botUsername = "PostManBot";
+    public $botUsername = 'Bot';
 
     /**
      * @var string SOCKS5 proxy format string: <login>:<password>@<host>:<port>
@@ -35,7 +36,7 @@ class TelegramBase extends Component
     public $proxy;
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var Client
      */
     private $_client;
 
@@ -47,9 +48,9 @@ class TelegramBase extends Component
 
 
     /**
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    protected function getClient()
+    protected function getClient(): Client
     {
         if (empty($this->_client)) {
             $this->_client = new Client(['base_uri' => $this->apiUrl]);
@@ -58,11 +59,9 @@ class TelegramBase extends Component
     }
 
     /**
-     * @return \Input
-     */
-    /**
      * @return Input
-     */F
+     * @noinspection PhpUnused
+     */
     protected function getInput(): ?Input
     {
         if (empty($this->_input)) {
@@ -71,10 +70,10 @@ class TelegramBase extends Component
                 $this->_input = null;
             } else {
                 try {
-                    $array = json_decode($input, true, 512, JSON_THROW_ON_ERROR);
+                    $array = json_decode($input, true);
                     $this->_input = new Input($array);
                 }
-                catch (\Exception $ex) {
+                catch (Exception $ex) {
                     return null;
                 }
             }
@@ -85,9 +84,10 @@ class TelegramBase extends Component
 
     /**
      * initializeParams
-     * @param Array $params
+     * @param array $params
+     * @return array
      */
-    public function initializeParams($params)
+    public function initializeParams(array $params): array
     {
         $is_resource = false;
         $multipart    = [];
@@ -102,12 +102,10 @@ class TelegramBase extends Component
             if ($key === 'media') {
                 // Magical media input helper.
                 $item = $this->mediaInputHelper($item, $is_resource, $multipart);
-            } else if (in_array($key, $attachments)) {
-                if (file_exists($item)) {
-                    $file = fopen($item, 'r');
-                    $is_resource |= is_resource($file);
-                    $multipart[] = ['name' => $key, 'contents' => $file];
-                }
+            } else if (in_array($key, $attachments, true) && file_exists($item)) {
+                $file = fopen($item, 'rb');
+                $is_resource |= is_resource($file);
+                $multipart[] = ['name' => $key, 'contents' => $file];
             }
 
 
@@ -124,17 +122,16 @@ class TelegramBase extends Component
     /**
      * send request
      * @param String $method
-     * @param Array $params
-     * @return string 
+     * @param array|null $params
+     * @return array
+     * @throws GuzzleException
      */
-    public function send($method, $params = null)
+    public function send(string $method, ?array $params = null): array
     {
         $request_params = $this->initializeParams($params);
-        $response = $this->client->post("/bot" . $this->botToken . $method, $request_params);
-        $body = json_decode($response->getBody(), true);
-        return $body;
+        $response = $this->getClient()->post('/bot' . $this->botToken . $method, $request_params);
+        return json_decode($response->getBody(), true);
     }
-
 
     /**
      * 
@@ -144,7 +141,6 @@ class TelegramBase extends Component
         $was_array = is_array($item);
         $was_array || $item = [$item];
 
-        $possible_medias = [];
         /** @var InputMedia|null $media_item */
         foreach ($item as $media_item) {
             if (!($media_item instanceof InputMedia)) {
@@ -155,15 +151,11 @@ class TelegramBase extends Component
             ]);
 
             foreach ($possible_medias as $type => $media) {
-
                 // Allow absolute paths to local files.
-                $media = new Stream(fopen($media, 'rb'));
-
-                if (is_resource($media) || $media instanceof Stream) {
-                    $is_resource = true;
-                    $unique_key   = uniqid($type . '_', false);
-                    $multipart[]  = ['name' => $unique_key, 'contents' => $media];
-                }
+                $media          = new Stream(fopen($media, 'rb'));
+                $is_resource    = true;
+                $unique_key     = uniqid($type . '_', false);
+                $multipart[]    = ['name' => $unique_key, 'contents' => $media];
             }
         }
         return json_encode($item);

@@ -1,13 +1,12 @@
-<?php
-namespace aki\telegram\types\inputMedia;
+<?php /** @noinspection PhpUnused */
 
-use aki\telegram\base\Type;
+namespace aki\telegram\types\InputMedia;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  * Represents a general file to be sent.
  */
-class InputMediaDocument extends Type implements InputMedia
+class InputMediaDocument extends InputMedia
 {
     public $type;
 
