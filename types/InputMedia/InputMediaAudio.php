@@ -1,14 +1,12 @@
-<?php
-namespace aki\telegram\types\inputMedia;
+<?php /** @noinspection PhpUnused */
 
-
-use aki\telegram\base\Type;
+namespace aki\telegram\types\InputMedia;
 
 /**
  * @author Akbar Joudi <akbar.joody@gmail.com>
  * Represents an audio file to be treated as music to be sent.
  */
-class InputMediaAudio extends Type implements InputMedia
+class InputMediaAudio extends InputMedia
 {
     public $type;
 
