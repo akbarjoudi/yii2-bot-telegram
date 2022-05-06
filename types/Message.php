@@ -24,7 +24,7 @@ class Message extends Type
 
     /**
      * Optional. Sender, empty for messages sent to channels
-     * @var User
+     * @var From
      */
     private $_from;
 
@@ -323,7 +323,7 @@ class Message extends Type
     /**
      * 
      */
-    public function getFrom(): User
+    public function getFrom(): From
     {
         return $this->_from;
     }
