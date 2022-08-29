@@ -22,4 +22,6 @@ class From extends Type
     public $username;
 
     public $language_code;
+    
+    public $is_premium;
 }
