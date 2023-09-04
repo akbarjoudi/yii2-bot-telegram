@@ -122,11 +122,11 @@ class TelegramBase extends Component
     /**
      * send request
      * @param String $method
-     * @param array|null $params
+     * @param array $params
      * @return array
      * @throws GuzzleException
      */
-    public function send(string $method, ?array $params = null): array
+    public function send($method, $params = [])
     {
         $request_params = $this->initializeParams($params);
         $response = $this->getClient()->post('/bot' . $this->botToken . $method, $request_params);
