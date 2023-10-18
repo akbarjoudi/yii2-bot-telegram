@@ -3,7 +3,7 @@
     "description": "bot telegram",
     "type": "yii2-extension",
     "keywords": ["yii2","extension"],
-    "license": "LGPL-3.0+",
+    "license": "LGPL-3.0+"
     "authors": [
         {
             "name": "akbarjoudi",
