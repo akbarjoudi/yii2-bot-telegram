@@ -71,6 +71,9 @@ class TelegramBase extends Component
             } else {
                 try {
                     $array = json_decode($input, true);
+                    if (!empty($array['message']['via_bot'])) {
+                        unset($array['message']['via_bot']);
+                    }
                     $this->_input = new Input($array);
                 }
                 catch (Exception $ex) {
