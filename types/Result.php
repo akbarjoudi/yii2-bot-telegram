@@ -18,6 +18,8 @@ class Result extends Type
 
    public $sender_chat;
 
+   public $link_preview_options;
+
    public $date;
 
    public $text;
