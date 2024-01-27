@@ -319,7 +319,45 @@ class Message extends Type
 
     public $new_chat_member;
 
+    /**
+    * @param VideoChatParticipantsInvited
+    * Optional. Service message: new participants invited to a video chat
+    */
+    public $video_chat_participants_invited;
 
+    /**
+    * @param VideoChatEnded
+    * Optional. Service message: video chat ended
+    */
+    public $video_chat_ended;
+
+    /**
+    * @param VideoChatStarted
+    * Optional. Service message: video chat started
+    */
+    public $video_chat_started;
+
+    /**
+    * @param VideoChatScheduled
+    *  Optional. Service message: video chat scheduled
+    */
+    public $video_chat_scheduled;
+
+    /**
+    * @param ForumTopicCreated
+    * Optional. Service message: forum topic created
+    */
+    public $forum_topic_created;
+
+    public $forum_topic_edited;
+
+    public $forum_topic_closed;
+
+    public $forum_topic_reopened;
+
+    public $general_forum_topic_hidden;
+
+    public $general_forum_topic_unhidden;
     /**
      * 
      */
