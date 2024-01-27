@@ -358,6 +358,15 @@ class Message extends Type
     public $general_forum_topic_hidden;
 
     public $general_forum_topic_unhidden;
+
+    public $giveaway_created;
+
+    public $giveaway;
+
+    public giveaway_winners;
+
+    public $giveaway_completed;
+    
     /**
      * 
      */
