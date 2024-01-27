@@ -363,7 +363,7 @@ class Message extends Type
 
     public $giveaway;
 
-    public giveaway_winners;
+    public $giveaway_winners;
 
     public $giveaway_completed;
     
