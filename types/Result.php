@@ -62,6 +62,12 @@ class Result extends Type
 
     public $forward_sender_name;
 
+   public $message_thread_id;
+
+   public $reply_to_message;
+   
+   public $is_topic_message;
+
    /**
     * 
     */
