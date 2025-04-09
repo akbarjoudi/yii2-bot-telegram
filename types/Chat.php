@@ -110,6 +110,8 @@ class Chat extends Type
      */
     public $all_members_are_administrators;
 
+    public $accepted_gift_types;
+
     /**
     * Optional. True, if the supergroup chat is a forum (has topics enabled)
     */
